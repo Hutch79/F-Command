@@ -1,0 +1,17 @@
+# Example configuration
+command:
+  # Name of the Command.
+  saySomething:
+    # Does the Player need to sneak to execute the command?
+    # True/False
+    requireShift: True
+    # Which permission is required to execute this command?
+    permission: fcommand.example
+    # Which command should be executed?
+    # Enter without /
+    # %player% is a Placeholder for the Player name
+    command: say hey
+    # should the event be canceled?
+    cancel: true
+
+
