@@ -11,21 +11,49 @@ F-Command is a little and easy to configure Minecraft Plugin which lets you set 
 You can add a near unlimited amount of Commands which can be configured individually to your needs!  
 For example, with different Permissions per command or if your Players need to sneak or not.
 
+# Usage Ideas
+<details>
+  <summary>Click me</summary>
+  
+## Server Menu
+You have a menu wher your players can easaly switch servers on your network?  
+Make it easaly accasible by pressing shift+F to open the menu!
+
+## Gui based AdminShop
+You have a AdminShop in a GUI like EconomyShopGUI?  
+Why not open it by pressing F?  
+Its much easier then typing in a command!
+
+</details>
+
+# Commands & Permision
+Only one Command, only one Permission!
+
+`/fcmd reload` - Reloading your Config  
+`fcommand.admin` - Update notification and access to /fcmd reload  
+
 # Config
 ``` yaml
+# Example configuration
 command:
   # Name of the Command.
-  saySomething:
+  Command1:
     # Does the Player need to sneak to execute the command?
     # True/False
-    requireShift: True
+    requireShift: false
     # Which permission is required to execute this command?
-    permission: fcommand.example
-    # Which command should be executed?
+    permission: f-command.example
+    # Which command should be executed as the player?
+    # You can also use PlaceholderAPI here!
     # Enter without /
     command: say hey
     # should the event be canceled?
     cancel: true
+    # Should the command be executed from the Server?
+    executeAsServer: false
+    
+  Command2:
+    # Add more commands here!
 ```
 
 # bStats
