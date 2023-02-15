@@ -5,3 +5,5 @@ api-version: 1.19
 authors: [ Hutch79 ]
 description: F-Command executes a command if the Player switches his/here offhand
 website: https://hutch79.ch/
+softdepend:
+  - PlaceholderAPI
