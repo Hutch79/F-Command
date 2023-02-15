@@ -1,6 +1,7 @@
 package ch.hutch79;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
     PluginDescriptionFile pdf = this.getDescription();
     private static Main instance;
+    private boolean isPlaceholderApiInstalled = false;
 
     @Override
     public void onEnable() {
@@ -32,6 +34,11 @@ public final class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §cIf you find any Bugs, please report them on GitHub");
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §6https://github.com/Hutch79/CookieClicker");
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5======================================================");
+
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §aPlaceholderAPI §7has been found, hooking into it now.");
+            isPlaceholderApiInstalled = true;
+        }
     }
 
     @Override
@@ -47,6 +54,13 @@ public final class Main extends JavaPlugin {
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public String replacePlaceholders(Player player, String input) {
+        if(isPlaceholderApiInstalled) {
+            return me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, input);
+        }
+        return input;
     }
 
 }

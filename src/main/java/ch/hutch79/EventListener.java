@@ -60,7 +60,7 @@ public class EventListener implements Listener {
                 e.setCancelled(true);
             }
 
-             player.performCommand(getInfo(count, "command"));
+             player.performCommand(mainClass.replacePlaceholders(player,getInfo(count, "command")));
 
 
         }
