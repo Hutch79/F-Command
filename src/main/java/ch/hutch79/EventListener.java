@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+
 import java.util.*;
 
 public class EventListener implements Listener {
@@ -17,16 +18,14 @@ public class EventListener implements Listener {
 
         commandOptions = new ArrayList<>(commandOptions2.size());
         commandOptions.addAll(commandOptions2);
-
     }
 
-    public String getInfo(int count, String value){
+    public String getInfo(int count, String value) {
 
         try {
-            return Objects.requireNonNull(mainClass.getConfig().getString("command." + commandOptions.get(count-1) + "." + value));
-        }
-        catch (NullPointerException e) {
-            mainClass.getLogger().warning(value + " could not be fount in configuration of command " + commandOptions.get(count-1));
+            return Objects.requireNonNull(mainClass.getConfig().getString("command." + commandOptions.get(count - 1) + "." + value));
+        } catch (NullPointerException e) {
+            mainClass.getLogger().warning(value + " could not be fount in configuration of command " + commandOptions.get(count - 1));
             return "ijfuwiqehfzqgw9r8mhe0w87gh";
         }
     }
@@ -53,15 +52,11 @@ public class EventListener implements Listener {
             }
 
 
-
-
-
             if (getInfo(count, "cancel").equalsIgnoreCase("true")) {
                 e.setCancelled(true);
             }
 
-             player.performCommand(getInfo(count, "command"));
-
+            player.performCommand(getInfo(count, "command"));
 
         }
 
