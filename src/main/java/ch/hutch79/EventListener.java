@@ -10,7 +10,7 @@ import java.util.*;
 public class EventListener implements Listener {
 
     private final Main mainInstance = Main.getInstance();
-    public static List<String> commandOptions;
+    public List<String> commandOptions;
 
     public void EventListenerInit() {
         mainInstance.reloadConfig();
@@ -34,10 +34,9 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
-        Bukkit.getConsoleSender().sendMessage("hui2: " + commandOptions);
 
         Player player = e.getPlayer();
-
+        Bukkit.getConsoleSender().sendMessage("hui: " + commandOptions);
         int count = 0;
         while (count < commandOptions.size()) {
             count++;
@@ -52,10 +51,11 @@ public class EventListener implements Listener {
                 if (!player.isSneaking()) {
                     return;
                 }
+            } else if (getInfo(count, "requireShift").equalsIgnoreCase("false")) {
+                if (player.isSneaking()) {
+                    return;
+                }
             }
-
-
-
 
 
             if (getInfo(count, "cancel").equalsIgnoreCase("true")) {

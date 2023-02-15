@@ -8,6 +8,7 @@ command:
     # Which permission is required to execute this command?
     permission: f-command.example
     # Which command should be executed as the player?
+    # You can also use PlaceholderAPI here!
     # Enter without /
     command: say hey
     # should the event be canceled?

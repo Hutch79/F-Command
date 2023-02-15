@@ -10,22 +10,23 @@ import java.util.Objects;
 public final class Main extends JavaPlugin {
     PluginDescriptionFile pdf = this.getDescription();
     private static Main instance;
+    private static EventListener eventListener;
     private boolean isPlaceholderApiInstalled = false;
 
     @Override
     public void onEnable() {
         instance = this;
 
-        EventListener eventListener = new EventListener();
+        eventListener = new EventListener();
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
         eventListener.EventListenerInit();
-        Bukkit.getPluginManager().registerEvents(new EventListener(), this);
+        Bukkit.getPluginManager().registerEvents(eventListener, this);
 
         Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command());
-        getCommand("fcommand").setTabCompleter(new CommandTab());
+        Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
 
         if (pdf.getVersion().contains("Beta")) {
             getLogger().warning("It seems you're using a dev Build");
@@ -67,6 +68,10 @@ public final class Main extends JavaPlugin {
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public static EventListener getListener() {
+        return eventListener;
     }
 
     public String replacePlaceholders(Player player, String input) {
