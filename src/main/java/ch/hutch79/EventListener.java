@@ -1,5 +1,6 @@
 package ch.hutch79;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,31 +9,32 @@ import java.util.*;
 
 public class EventListener implements Listener {
 
-    private final Main mainClass = Main.getInstance();
-    List<String> commandOptions;
+    private final Main mainInstance = Main.getInstance();
+    public static List<String> commandOptions;
 
-    public EventListener() {
-
-        Set<String> commandOptions2 = Objects.requireNonNull(mainClass.getConfig().getConfigurationSection("command")).getKeys(false);
-
+    public void EventListenerInit() {
+        mainInstance.reloadConfig();
+        Set<String> commandOptions2 = Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("command")).getKeys(false);
         commandOptions = new ArrayList<>(commandOptions2.size());
         commandOptions.addAll(commandOptions2);
-
+        Bukkit.getConsoleSender().sendMessage("hui: " + commandOptions);
     }
 
     public String getInfo(int count, String value){
 
-        try {
-            return Objects.requireNonNull(mainClass.getConfig().getString("command." + commandOptions.get(count-1) + "." + value));
+        String result = mainInstance.getConfig().getString("command." + commandOptions.get(count-1) + "." + value);
+
+        if(result == null) {
+            mainInstance.getLogger().warning("The Value " + value + " for the Command " + commandOptions.get(count-1) + " is not set!");
+            return "defaultValue";
         }
-        catch (NullPointerException e) {
-            mainClass.getLogger().warning(value + " could not be fount in configuration of command " + commandOptions.get(count-1));
-            return "ijfuwiqehfzqgw9r8mhe0w87gh";
-        }
+
+        return result;
     }
 
     @EventHandler
     public void onSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
+        Bukkit.getConsoleSender().sendMessage("hui2: " + commandOptions);
 
         Player player = e.getPlayer();
 
@@ -60,7 +62,12 @@ public class EventListener implements Listener {
                 e.setCancelled(true);
             }
 
-             player.performCommand(mainClass.replacePlaceholders(player,getInfo(count, "command")));
+
+            if (getInfo(count, "executeAsServer").equalsIgnoreCase("true")) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), mainInstance.replacePlaceholders(player,getInfo(count, "command")));
+            } else {
+                player.performCommand(mainInstance.replacePlaceholders(player,getInfo(count, "command")));
+            }
 
 
         }

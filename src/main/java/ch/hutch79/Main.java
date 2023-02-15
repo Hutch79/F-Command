@@ -2,9 +2,10 @@ package ch.hutch79;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Objects;
 
 public final class Main extends JavaPlugin {
     PluginDescriptionFile pdf = this.getDescription();
@@ -14,10 +15,17 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        Bukkit.getPluginManager().registerEvents(new EventListener(), this);
+
+        EventListener eventListener = new EventListener();
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
+
+        eventListener.EventListenerInit();
+        Bukkit.getPluginManager().registerEvents(new EventListener(), this);
+
+        Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command());
+        getCommand("fcommand").setTabCompleter(new CommandTab());
 
         if (pdf.getVersion().contains("Beta")) {
             getLogger().warning("It seems you're using a dev Build");
@@ -33,11 +41,15 @@ public final class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5------------------------------------------------------");
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §cIf you find any Bugs, please report them on GitHub");
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §6https://github.com/Hutch79/CookieClicker");
+        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §9Discord: §6https://dc.hutch79.ch");
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5======================================================");
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §aPlaceholderAPI §7has been found, hooking into it now.");
             isPlaceholderApiInstalled = true;
+        }
+        else {
+            Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §aPlaceholderAPI §7has not been found.");
         }
     }
 
@@ -49,6 +61,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5------------------------------------------------------");
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §cIf you find any Bugs, please report them on GitHub");
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §6https://github.com/Hutch79/F-Command");
+        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §9Discord: §6https://dc.hutch79.ch");
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5======================================================");
     }
 

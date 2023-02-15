@@ -12,6 +12,8 @@ command:
     command: say hey
     # should the event be canceled?
     cancel: true
+    # Should the command be executed from the Server?
+    executeAsServer: false
 
 
 

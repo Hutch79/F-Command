@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ch</groupId>
-    <artifactId>hutch79</artifactId>
-    <version>Beta 0.1</version>
+    <groupId>ch.hutch79</groupId>
+    <artifactId>F-Command</artifactId>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>F-Command</name>
