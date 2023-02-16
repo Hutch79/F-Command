@@ -1,3 +1,7 @@
+# Only turn this on if your asked by the Dev
+# Might spam your console and/or chat ;-)
+debug: false
+
 # Example configuration
 command:
   # Name of the Command.
