@@ -4,7 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import org.bstats.bukkit.Metrics;
+import com.jeff_media.updatechecker.*;
 import java.util.Objects;
 
 public final class Main extends JavaPlugin {
@@ -27,6 +28,22 @@ public final class Main extends JavaPlugin {
 
         Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command());
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
+
+        Metrics metrics = new Metrics(this, 17738); // bStats
+        final int SPIGOT_RESOURCE_ID = 108009; // Update checker
+
+        new UpdateChecker(this, UpdateCheckSource.SPIGET, "" + SPIGOT_RESOURCE_ID + "")
+                .setDownloadLink("https://www.spigotmc.org/resources/108009/")
+                .setChangelogLink("https://www.spigotmc.org/resources/108009/updates")
+                .setColoredConsoleOutput(true)
+                .setNotifyOpsOnJoin(true)
+                .setNotifyByPermissionOnJoin("f-command.admin")
+                .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion().addServerVersion())
+                .checkEveryXHours(12) //Warn every 12 hours
+                .checkNow();
+
+
+
 
         if (pdf.getVersion().contains("Beta")) {
             getLogger().warning("It seems you're using a dev Build");

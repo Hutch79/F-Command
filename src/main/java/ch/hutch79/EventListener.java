@@ -17,7 +17,7 @@ public class EventListener implements Listener {
         Set<String> commandOptions2 = Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("command")).getKeys(false);
         commandOptions = new ArrayList<>(commandOptions2.size());
         commandOptions.addAll(commandOptions2);
-        Bukkit.getConsoleSender().sendMessage("hui: " + commandOptions);
+        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §7Loaded Commands: " + commandOptions);
     }
 
     public String getInfo(int count, String value){
@@ -36,7 +36,6 @@ public class EventListener implements Listener {
     public void onSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
 
         Player player = e.getPlayer();
-        Bukkit.getConsoleSender().sendMessage("hui: " + commandOptions);
         int count = 0;
         while (count < commandOptions.size()) {
             count++;

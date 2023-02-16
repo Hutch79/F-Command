@@ -28,11 +28,27 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
+                <configuration>
+                    <relocations>
+                        <!-- Using the maven-shade-plugin to shade and relocate the UpdateChecker -->
+                        <!-- Replace "your.package" with your plugin's package name -->
+                        <relocation>
+                            <pattern>com.jeff_media.updatechecker</pattern>
+                            <shadedPattern>ch.hutch79.updatechecker</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <!-- Replace this with your package! -->
+                            <shadedPattern>ch.hutch79</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -64,6 +80,10 @@
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
         <repository>
+            <id>jeff-media-public</id>
+            <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
+        </repository>
+        <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
@@ -75,6 +95,18 @@
             <artifactId>spigot-api</artifactId>
             <version>1.19.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jeff_media</groupId>
+            <artifactId>SpigotUpdateChecker</artifactId>
+            <version>3.0.0</version> <!-- Check on GitHub for the latest version -->
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

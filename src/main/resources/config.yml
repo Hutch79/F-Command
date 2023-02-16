@@ -1,7 +1,22 @@
 # Example configuration
 command:
   # Name of the Command.
-  saySomething:
+  command1:
+    # Does the Player need to sneak to execute the command?
+    # True/False
+    requireShift: false
+    # Which permission is required to execute this command?
+    permission: f-command.example
+    # Which command should be executed as the player?
+    # You can also use PlaceholderAPI here!
+    # Enter without /
+    command: say hey try the F key again while pressing shift
+    # should the event be canceled?
+    cancel: true
+    # Should the command be executed from the Server?
+    executeAsServer: false
+
+  command2:
     # Does the Player need to sneak to execute the command?
     # True/False
     requireShift: True
@@ -10,11 +25,10 @@ command:
     # Which command should be executed as the player?
     # You can also use PlaceholderAPI here!
     # Enter without /
-    command: say hey
+    command: say Cool, you did it!
     # should the event be canceled?
     cancel: true
     # Should the command be executed from the Server?
     executeAsServer: false
-
 
 
