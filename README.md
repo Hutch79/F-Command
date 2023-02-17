@@ -8,8 +8,16 @@
 ---
 # Description
 F-Command is a little and easy to configure Minecraft Plugin which lets you set up multiple commands which are executed on pressing the F key.  
-You can add a near unlimited amount of Commands which can be configured individually to your needs!  
-For example, with different Permissions per command or if your Players need to sneak or not.
+
+You can configure every command exactly to your needs with four easy to use options.  
+- Per command Permission  
+- Define per command if it should be executed by the Player or the Server  
+- Should the Offhand be switched or not?  
+- Does the Player need to sneak or not?  
+
+And the best thing is: You can even use PlaceholderAPI within the commands, and therefore integrate hundreds  of other Plugins!
+
+Every one of thees options is available for every command you configure!
 
 # Usage Ideas
 <details>
