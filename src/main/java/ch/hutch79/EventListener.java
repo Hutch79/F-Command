@@ -86,7 +86,7 @@ public class EventListener implements Listener {
                     if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Executed by Server - §e" + commandOptions.get(count-1));}
                 } else {
                     player.performCommand(mainInstance.replacePlaceholders(player,getInfo(count, "command")));
-                    if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Executed by Console - §e" + commandOptions.get(count-1));}
+                    if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Executed by Player - §e" + commandOptions.get(count-1));}
                 }
             }
         }
