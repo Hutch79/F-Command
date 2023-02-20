@@ -6,7 +6,7 @@
 
     <groupId>ch.hutch79</groupId>
     <artifactId>F-Command</artifactId>
-    <version>2.2</version>
+    <version>beta.2</version>
     <packaging>jar</packaging>
 
     <name>F-Command</name>
