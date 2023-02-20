@@ -8,9 +8,9 @@ import org.bstats.bukkit.Metrics;
 import com.jeff_media.updatechecker.*;
 import java.util.Objects;
 
-public final class Main extends JavaPlugin {
+public final class FCommand extends JavaPlugin {
     PluginDescriptionFile pdf = this.getDescription();
-    private static Main instance;
+    private static FCommand instance;
     private static EventListener eventListener;
     private boolean isPlaceholderApiInstalled = false;
 
@@ -83,7 +83,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5======================================================");
     }
 
-    public static Main getInstance() {
+    public static FCommand getInstance() {
         return instance;
     }
 

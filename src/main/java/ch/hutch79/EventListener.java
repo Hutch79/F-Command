@@ -9,13 +9,13 @@ import java.util.*;
 
 public class EventListener implements Listener {
 
-    private final Main mainInstance = Main.getInstance();
+    private final FCommand mainInstance = FCommand.getInstance();
     private boolean debug = false;
     public List<String> commandOptions;
 
     public void EventListenerInit() {
         mainInstance.reloadConfig();
-        Set<String> commandOptions2 = Objects.requireNonNull(Main.getInstance().getConfig().getConfigurationSection("command")).getKeys(false);
+        Set<String> commandOptions2 = Objects.requireNonNull(FCommand.getInstance().getConfig().getConfigurationSection("command")).getKeys(false);
         commandOptions = new ArrayList<>(commandOptions2.size());
         commandOptions.addAll(commandOptions2);
         debug = mainInstance.getConfig().getBoolean("debug");

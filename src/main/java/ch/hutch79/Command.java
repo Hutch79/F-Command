@@ -20,7 +20,7 @@ public class Command implements CommandExecutor {
 
 
         if (args[0].equalsIgnoreCase("reload")) {
-            Main.getListener().EventListenerInit();
+            FCommand.getListener().EventListenerInit();
             sender.sendMessage("§dF-Command §8> §7Config has been reloaded");
         }
 
