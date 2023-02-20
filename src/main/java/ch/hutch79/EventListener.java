@@ -24,7 +24,7 @@ public class EventListener implements Listener {
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §7Loaded Commands: " + commandOptions);
     }
 
-    public String getInfo(int count, String value){
+    private String getInfo(int count, String value){
 
         String result = mainInstance.getConfig().getString("command." + commandOptions.get(count) + "." + value);
 
