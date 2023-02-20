@@ -11,13 +11,10 @@ public class Command implements CommandExecutor {
 
         if (args.length != 1) return false;
 
-        if (sender instanceof Player) {
-            if (!sender.hasPermission("fcommand.admin")) {
-                sender.sendMessage("§dF-Command §8> §cYou don't have Permission to execute this command");
-                return false;
-            }
+        if (!sender.hasPermission("fcommand.admin")) {
+            sender.sendMessage("§dF-Command §8> §cYou don't have Permission to execute this command");
+            return false;
         }
-
 
         if (args[0].equalsIgnoreCase("reload")) {
             FCommand.getListener().EventListenerInit();
