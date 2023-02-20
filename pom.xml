@@ -11,7 +11,7 @@
 
     <name>F-Command</name>
 
-    <description>F-Command executes a command if the Player swiches his/here offhand</description>
+    <description>F-Command executes a command when a Player switches his/her offhand</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
