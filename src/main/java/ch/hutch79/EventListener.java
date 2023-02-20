@@ -26,7 +26,7 @@ public class EventListener implements Listener {
 
     public String getInfo(int count, String value){
 
-        String result = mainInstance.getConfig().getString("command." + commandOptions.get(count-1) + "." + value);
+        String result = mainInstance.getConfig().getString("command." + commandOptions.get(count) + "." + value);
 
         if(result == null) {
             mainInstance.getLogger().warning("The Value " + value + " for the Command " + commandOptions.get(count) + " is not set!");
@@ -43,33 +43,31 @@ public class EventListener implements Listener {
 
         Player player = e.getPlayer();
 
-        int count = 0;
-        while (count < commandOptions.size()) {
-            count++;
+        for (int count = 0; count < commandOptions.size(); count++) {
 
             int count1 = 0;
             while (count1 < 1) {
                 count1++;
 
-                if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Event while count: §e" + (count-1));}
-                if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Event while current command: §e" + commandOptions.get(count-1));}
+                if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Event while count: §e" + (count));}
+                if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Event while current command: §e" + commandOptions.get(count));}
 
 
                 if (!getInfo(count, "permission").equalsIgnoreCase("None")) { // Correct Permission?
                     if (!player.hasPermission(getInfo(count, "permission"))) {
-                        if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7return permission - §e" + commandOptions.get(count-1));}
+                        if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7return permission - §e" + commandOptions.get(count));}
                         break;
                     }
                 }
 
                 if (getInfo(count, "requireShift").equalsIgnoreCase("true")) {
                     if (!player.isSneaking()) {
-                        if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7return sneaking 1 - §e" + commandOptions.get(count-1));}
+                        if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7return sneaking 1 - §e" + commandOptions.get(count));}
                         break;
                     }
                 } else if (getInfo(count, "requireShift").equalsIgnoreCase("false")) {
                     if (player.isSneaking()) {
-                        if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7return sneaking 2 - §e" + commandOptions.get(count-1));}
+                        if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7return sneaking 2 - §e" + commandOptions.get(count));}
                         break;
                     }
                 }
@@ -77,16 +75,16 @@ public class EventListener implements Listener {
 
                 if (getInfo(count, "cancel").equalsIgnoreCase("true")) {
                     e.setCancelled(true);
-                    if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7event canceled - §e" + commandOptions.get(count-1));}
+                    if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7event canceled - §e" + commandOptions.get(count));}
                 }
 
 
                 if (getInfo(count, "executeAsServer").equalsIgnoreCase("true")) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), mainInstance.replacePlaceholders(player,getInfo(count, "command")));
-                    if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Executed by Server - §e" + commandOptions.get(count-1));}
+                    if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Executed by Server - §e" + commandOptions.get(count));}
                 } else {
                     player.performCommand(mainInstance.replacePlaceholders(player,getInfo(count, "command")));
-                    if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Executed by Player - §e" + commandOptions.get(count-1));}
+                    if (debug) {Bukkit.getConsoleSender().sendMessage("§cFcmd-debug §8> §7Executed by Player - §e" + commandOptions.get(count));}
                 }
             }
         }
