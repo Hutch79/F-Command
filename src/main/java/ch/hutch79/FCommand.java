@@ -13,6 +13,7 @@ public final class FCommand extends JavaPlugin {
     private static FCommand instance;
     private static EventListener eventListener;
     private boolean isPlaceholderApiInstalled = false;
+    private static boolean debug;
 
     @Override
     public void onEnable() {
@@ -30,6 +31,9 @@ public final class FCommand extends JavaPlugin {
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
 
         Metrics metrics = new Metrics(this, 17738); // bStats
+
+        debug = getConfig().getBoolean("debug");
+
         final int SPIGOT_RESOURCE_ID = 108009; // Update checker
 
         new UpdateChecker(this, UpdateCheckSource.SPIGET, "" + SPIGOT_RESOURCE_ID + "")
@@ -89,6 +93,10 @@ public final class FCommand extends JavaPlugin {
 
     public static EventListener getListener() {
         return eventListener;
+    }
+
+    public static boolean isDebug() {
+        return debug;
     }
 
     public String replacePlaceholders(Player player, String input) {
