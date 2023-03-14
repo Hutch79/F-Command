@@ -57,34 +57,34 @@ public final class FCommand extends JavaPlugin {
             getLogger().warning("If you find any Bugs, please report them on GitHub: https://github.com/Hutch79/CookieClicker");
         }
 
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5======================================================");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §6F-Command " + pdf.getVersion() + " §bby Hutch79");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §7Has been §2Enabled");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5------------------------------------------------------");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §cIf you find any Bugs, please report them on GitHub");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §6https://github.com/Hutch79/CookieClicker");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §9Discord: §6https://dc.hutch79.ch");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5======================================================");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6" + pdf.getName() + " " + pdf.getVersion() + " §bby Hutch79");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §7Has been §2Enabled");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5------------------------------------------------------");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §cIf you find any Bugs, please report them on GitHub");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6https://github.com/Hutch79/CookieClicker");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §9Discord: §6https://dc.hutch79.ch");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §aPlaceholderAPI §7has been found, hooking into it now.");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §aPlaceholderAPI §7has been found, hooking into it now.");
             isPlaceholderApiInstalled = true;
         }
         else {
-            Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §aPlaceholderAPI §7has not been found.");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §aPlaceholderAPI §7has not been found.");
         }
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5======================================================");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §6F-Command " + pdf.getVersion() + " §bby Hutch79");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §7Has been §cDisabled");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5------------------------------------------------------");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §cIf you find any Bugs, please report them on GitHub");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §6https://github.com/Hutch79/F-Command");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5| §9Discord: §6https://dc.hutch79.ch");
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §5======================================================");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6F-Command " + pdf.getVersion() + " §bby Hutch79");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §7Has been §cDisabled");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5------------------------------------------------------");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §cIf you find any Bugs, please report them on GitHub");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6https://github.com/Hutch79/F-Command");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §9Discord: §6https://dc.hutch79.ch");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
     }
 
     public static FCommand getInstance() {
