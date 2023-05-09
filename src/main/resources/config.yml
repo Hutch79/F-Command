@@ -6,6 +6,7 @@ debug: false
 command:
   # Name of the Command.
   command1:
+    key: f  # f or q
     # Does the Player need to sneak to execute the command?
     # True/False
     requireShift: false
@@ -19,8 +20,10 @@ command:
     cancel: true
     # Should the command be executed from the Server?
     executeAsServer: false
+    item: STONE
 
   command2:
+    key: f  # f or q
     # Does the Player need to sneak to execute the command?
     # True/False
     requireShift: True

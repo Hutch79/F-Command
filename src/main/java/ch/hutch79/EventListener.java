@@ -1,16 +1,20 @@
 package ch.hutch79;
 
+import me.clip.placeholderapi.events.ExpansionRegisterEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import java.util.*;
 
 public class EventListener implements Listener {
 
     private final FCommand mainInstance = FCommand.getInstance();
-    public List<String> commandOptions;
+    private List<String> commandOptions;
+    private PlayerSwapHandItemsEvent playerSwapHandItemsEvent;
+    private PlayerDropItemEvent playerDropItemEvent;
 
     public void EventListenerInit() {
         mainInstance.reloadConfig();
@@ -27,25 +31,56 @@ public class EventListener implements Listener {
         String result = mainInstance.getConfig().getString("command." + commandOptions.get(count) + "." + value);
 
         if(result == null) {
-            mainInstance.getLogger().warning("The Value " + value + " for the Command " + commandOptions.get(count) + " is not set!");
+            if (!value.equalsIgnoreCase("item")) {
+                mainInstance.getLogger().warning("The Value " + value + " for the Command " + commandOptions.get(count) + " is not set!");
+            }
             return "defaultValue";
         }
 
         return result;
     }
 
-    @EventHandler
-    public void onSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
+    private void commandExecuter (Player player, String eventKey) {
 
-        Debugger.debug("PlayerSwapHandItemsEvent detected");
-
-        Player player = e.getPlayer();
+        if (Objects.equals(eventKey, "PlayerSwapHandItemsEvent")) {
+            eventKey = "f";
+        } else if (Objects.equals(eventKey, "PlayerDropItemEvent")) {
+            eventKey = "q";
+        }
 
         for (int count = 0; count < commandOptions.size(); count++) {
+
 
             Debugger.debug("Event while count: §e" + (count));
             Debugger.debug("Event while current command: §e" + commandOptions.get(count));
 
+
+            if (!getInfo(count, "key").equalsIgnoreCase(eventKey)) { // Which Key was pressed?
+                Debugger.debug("return key - §e" + commandOptions.get(count));
+                continue;
+            }
+
+            /*if (getInfo(count, "key").equalsIgnoreCase("f")) {
+
+                if (!getInfo(count, "item").equalsIgnoreCase(String.valueOf(playerSwapHandItemsEvent.getMainHandItem().getType()))) {
+                    if (!getInfo(count, "item").equalsIgnoreCase(String.valueOf(playerSwapHandItemsEvent.getOffHandItem().getType()))) {
+                        Debugger.debug("return item in hand - §e" + commandOptions.get(count));
+                        continue;
+                    }
+                }
+            }
+
+            if (getInfo(count, "key").equalsIgnoreCase("q")) {
+
+                if (!getInfo(count, "item").equalsIgnoreCase("defaultValue")) {
+                    if (!getInfo(count, "item").equalsIgnoreCase(String.valueOf(playerDropItemEvent.getItemDrop().getType()))) {
+                        Debugger.debug("return dropped item - §e" + commandOptions.get(count));
+                        continue;
+                    }
+                }
+
+
+            }*/
 
             if (!getInfo(count, "permission").equalsIgnoreCase("None")) { // Correct Permission?
                 if (!player.hasPermission(getInfo(count, "permission"))) {
@@ -68,7 +103,12 @@ public class EventListener implements Listener {
 
 
             if (getInfo(count, "cancel").equalsIgnoreCase("true")) {
-                e.setCancelled(true);
+
+                if (eventKey.equalsIgnoreCase("f")) {
+                    playerSwapHandItemsEvent.setCancelled(true);
+                } else if (eventKey.equalsIgnoreCase("q")) {
+                    playerDropItemEvent.setCancelled(true);
+                }
                 Debugger.debug("event canceled - §e" + commandOptions.get(count));
             }
 
@@ -81,5 +121,20 @@ public class EventListener implements Listener {
                 Debugger.debug("Executed by Player - §e" + commandOptions.get(count));
             }
         }
+
+    }
+
+    @EventHandler
+    private void onSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
+        Debugger.debug("PlayerSwapHandItemsEvent detected");
+        playerSwapHandItemsEvent = e;
+        commandExecuter(e.getPlayer(), e.getEventName());
+    }
+
+    @EventHandler
+    private void dropItemEvent(PlayerDropItemEvent e) {
+        Debugger.debug("PlayerDropItemEvent detected");
+        playerDropItemEvent = e;
+        commandExecuter(e.getPlayer(), e.getEventName());
     }
 }
