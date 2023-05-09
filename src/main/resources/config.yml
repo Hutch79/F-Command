@@ -16,7 +16,7 @@ command:
     # You can also use PlaceholderAPI here!
     # Enter without /
     command: say f no shift
-    # should the event be canceled?
+    # should the original action be canceled?
     cancel: true
     # Should the command be executed from the Server?
     executeAsServer: false

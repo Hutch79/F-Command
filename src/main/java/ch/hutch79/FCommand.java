@@ -1,5 +1,8 @@
 package ch.hutch79;
 
+import ch.hutch79.command.Command;
+import ch.hutch79.command.CommandTab;
+import ch.hutch79.utility.EventListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;

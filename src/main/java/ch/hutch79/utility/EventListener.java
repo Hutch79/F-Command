@@ -1,5 +1,6 @@
-package ch.hutch79;
+package ch.hutch79.utility;
 
+import ch.hutch79.FCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
