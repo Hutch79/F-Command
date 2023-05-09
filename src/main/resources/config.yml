@@ -1,4 +1,4 @@
-# Only turn this on if your asked by the Dev
+# Only turn this on if you're asked by the Dev
 # Might spam your console and/or chat ;-)
 debug: false
 
@@ -15,7 +15,7 @@ command:
     # Which command should be executed as the player?
     # You can also use PlaceholderAPI here!
     # Enter without /
-    command: say hey try the F key again while pressing shift
+    command: say f no shift
     # should the event be canceled?
     cancel: true
     # Should the command be executed from the Server?
@@ -23,19 +23,27 @@ command:
     item: STONE
 
   command2:
-    key: f  # f or q
-    # Does the Player need to sneak to execute the command?
-    # True/False
+    key: F
     requireShift: True
-    # Which permission is required to execute this command?
     permission: f-command.example
-    # Which command should be executed as the player?
-    # You can also use PlaceholderAPI here!
-    # Enter without /
-    command: say Cool, you did it!
-    # should the event be canceled?
+    command: say F shift
     cancel: true
-    # Should the command be executed from the Server?
+    executeAsServer: false
+
+  command3:
+    key: q
+    requireShift: True
+    permission: f-command.example
+    command: say q shift
+    cancel: true
+    executeAsServer: false
+
+  command4:
+    key: Q
+    requireShift: false
+    permission: f-command.example
+    command: say Q no shift
+    cancel: true
     executeAsServer: false
 
 

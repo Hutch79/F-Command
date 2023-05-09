@@ -1,10 +1,11 @@
 package ch.hutch79;
 
-import me.clip.placeholderapi.events.ExpansionRegisterEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import java.util.*;
@@ -21,6 +22,7 @@ public class EventListener implements Listener {
         Set<String> commandOptions2 = Objects.requireNonNull(FCommand.getInstance().getConfig().getConfigurationSection("command")).getKeys(false);
         commandOptions = new ArrayList<>(commandOptions2.size());
         commandOptions.addAll(commandOptions2);
+        FCommand.setDebug(mainInstance.getConfig().getBoolean("debug"));
         Debugger.debug("commandOptions list: §e" + commandOptions);
 
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §7Loaded Commands: " + commandOptions);
@@ -59,28 +61,6 @@ public class EventListener implements Listener {
                 Debugger.debug("return key - §e" + commandOptions.get(count));
                 continue;
             }
-
-            /*if (getInfo(count, "key").equalsIgnoreCase("f")) {
-
-                if (!getInfo(count, "item").equalsIgnoreCase(String.valueOf(playerSwapHandItemsEvent.getMainHandItem().getType()))) {
-                    if (!getInfo(count, "item").equalsIgnoreCase(String.valueOf(playerSwapHandItemsEvent.getOffHandItem().getType()))) {
-                        Debugger.debug("return item in hand - §e" + commandOptions.get(count));
-                        continue;
-                    }
-                }
-            }
-
-            if (getInfo(count, "key").equalsIgnoreCase("q")) {
-
-                if (!getInfo(count, "item").equalsIgnoreCase("defaultValue")) {
-                    if (!getInfo(count, "item").equalsIgnoreCase(String.valueOf(playerDropItemEvent.getItemDrop().getType()))) {
-                        Debugger.debug("return dropped item - §e" + commandOptions.get(count));
-                        continue;
-                    }
-                }
-
-
-            }*/
 
             if (!getInfo(count, "permission").equalsIgnoreCase("None")) { // Correct Permission?
                 if (!player.hasPermission(getInfo(count, "permission"))) {
@@ -130,11 +110,24 @@ public class EventListener implements Listener {
         playerSwapHandItemsEvent = e;
         commandExecuter(e.getPlayer(), e.getEventName());
     }
+    private Boolean ignoreEvent = false;
+    @EventHandler
+    private void inventoryClickEvent(InventoryClickEvent e) {
+        Debugger.debug("Test " + e.getSlot() + " and " + e.getSlotType());
+        if (e.getSlotType() != InventoryType.SlotType.valueOf("OUTSIDE")) {
+            Debugger.debug("Event ignored");
+            ignoreEvent = true;
+        }
+    }
 
     @EventHandler
     private void dropItemEvent(PlayerDropItemEvent e) {
-        Debugger.debug("PlayerDropItemEvent detected");
-        playerDropItemEvent = e;
-        commandExecuter(e.getPlayer(), e.getEventName());
+        Debugger.debug("PlayerDropItemEvent detected: " + e.getPlayer());
+        if (!ignoreEvent) {
+            Debugger.debug("It was Q");
+            playerDropItemEvent = e;
+            commandExecuter(e.getPlayer(), e.getEventName());
+        }
+        ignoreEvent = false;
     }
 }

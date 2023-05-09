@@ -95,8 +95,12 @@ public final class FCommand extends JavaPlugin {
         return eventListener;
     }
 
-    public static boolean isDebug() {
+    public static boolean getDebug() {
         return debug;
+    }
+
+    public static void setDebug(Boolean value) {
+        debug = value;
     }
 
     public String replacePlaceholders(Player player, String input) {
