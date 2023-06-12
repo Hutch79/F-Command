@@ -39,9 +39,12 @@ public class EventListener implements Listener {
     private String getInfo(int count, String value){
 
         String result = cfg.getString("command." + commandOptions.get(count) + "." + value);
-        Debugger.debug("§6Value: " + value + " - result: " + result);
         if(result == null) {
             Debugger.debug("The Value " + value + " for the Command " + commandOptions.get(count) + " is not set!");
+
+            if (value.equals("key")) {
+                return "f";
+            }
 
             if (value.equals("permission")) {
                 Debugger.debug("§6Haha");
@@ -56,14 +59,13 @@ public class EventListener implements Listener {
                 return "false";
             }
 
+            if (value.equals("executeAsServer")) {
+                return "false";
+            }
+
             if (value.equals("command")) {
                 return "say hi, im a default command. Please edit the config.yml to set your own command.";
             }
-
-            if (!value.equalsIgnoreCase("item")) {
-
-            }
-            return "defaultValue";
         }
 
         return result;
