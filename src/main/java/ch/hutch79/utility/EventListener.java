@@ -32,6 +32,7 @@ public class EventListener implements Listener {
     private String getInfo(int count, String value){
 
         String result = mainInstance.getConfig().getString("command." + commandOptions.get(count) + "." + value);
+        Debugger.debug("§6Value: " + value + " - result: " + result);
         if(result == null) {
             Debugger.debug("The Value " + value + " for the Command " + commandOptions.get(count) + " is not set!");
 

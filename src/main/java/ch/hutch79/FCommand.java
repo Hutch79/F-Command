@@ -24,8 +24,9 @@ public final class FCommand extends JavaPlugin {
 
         eventListener = new EventListener();
 
-        getConfig().options().copyDefaults();
+//        getConfig().options().copyDefaults();
         saveDefaultConfig();
+        reloadConfig();
 
         eventListener.EventListenerInit();
         Bukkit.getPluginManager().registerEvents(eventListener, this);
