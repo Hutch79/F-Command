@@ -1,4 +1,4 @@
-# Only turn this on if you're asked by the Dev
+# Only turn this on if you're asked to
 # Might spam your console and/or chat ;-)
 debug: false
 
@@ -6,21 +6,21 @@ debug: false
 command:
   # Name of the Command.
   command1:
-    key: f  # f or q
+    # Key to press (f or q)
+    key: f
     # Does the Player need to sneak to execute the command?
     # True/False
-    requireShift: false
+    requireShift: false  # Default true
     # Which permission is required to execute this command?
-    permission: f-command.example
-    # Which command should be executed as the player?
+    permission: f-command.example  # Default none
+    # Which command should be executed?
     # You can also use PlaceholderAPI here!
     # Enter without /
     command: say f no shift
-    # should the original action be canceled?
-    cancel: true
+    # Stopping item drop or hand swap from happening
+    cancel: true  # Default false
     # Should the command be executed from the Server?
-    executeAsServer: false
-    item: STONE
+    executeAsServer: false  # default false
 
   command2:
     key: F

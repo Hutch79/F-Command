@@ -32,10 +32,28 @@ public class EventListener implements Listener {
     private String getInfo(int count, String value){
 
         String result = mainInstance.getConfig().getString("command." + commandOptions.get(count) + "." + value);
-
         if(result == null) {
+            Debugger.debug("The Value " + value + " for the Command " + commandOptions.get(count) + " is not set!");
+
+            if (value.equals("permission")) {
+                Debugger.debug("§6Haha");
+                return "none";
+            }
+
+            if (value.equals("requireShift")) {
+                return "true";
+            }
+
+            if (value.equals("cancel")) {
+                return "false";
+            }
+
+            if (value.equals("command")) {
+                return "say hi, im a default command. Please edit the config.yml to set your own command.";
+            }
+
             if (!value.equalsIgnoreCase("item")) {
-                mainInstance.getLogger().warning("The Value " + value + " for the Command " + commandOptions.get(count) + " is not set!");
+
             }
             return "defaultValue";
         }
@@ -58,13 +76,13 @@ public class EventListener implements Listener {
             Debugger.debug("Event while current command: §e" + commandOptions.get(count));
 
 
-            if (!getInfo(count, "key").equalsIgnoreCase(eventKey)) { // Which Key was pressed?
+            if (!getInfo(count, "key").equalsIgnoreCase(eventKey)) { // Correct Key was pressed?
                 Debugger.debug("return key - §e" + commandOptions.get(count));
                 continue;
             }
 
-            if (!getInfo(count, "permission").equalsIgnoreCase("None")) { // Correct Permission?
-                if (!player.hasPermission(getInfo(count, "permission"))) {
+            if (!getInfo(count, "permission").equalsIgnoreCase("none")) { // Permission in Config?
+                if (!player.hasPermission(getInfo(count, "permission"))) { // Correct Permission?
                     Debugger.debug("return permission - §e" + commandOptions.get(count));
                     continue;
                 }
@@ -102,7 +120,6 @@ public class EventListener implements Listener {
                 Debugger.debug("Executed by Player - §e" + commandOptions.get(count));
             }
         }
-
     }
 
     @EventHandler
@@ -114,9 +131,8 @@ public class EventListener implements Listener {
     private Boolean ignoreEvent = false;
     @EventHandler
     private void inventoryClickEvent(InventoryClickEvent e) {
-        Debugger.debug("Test " + e.getSlot() + " and " + e.getSlotType());
         if (e.getSlotType() != InventoryType.SlotType.valueOf("OUTSIDE")) {
-            Debugger.debug("Event ignored");
+            Debugger.debug("Event ignored, not OUTSIDE");
             ignoreEvent = true;
         }
     }
