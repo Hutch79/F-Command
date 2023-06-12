@@ -2,6 +2,8 @@ package ch.hutch79.utility;
 
 import ch.hutch79.FCommand;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,6 +11,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+
+import java.io.File;
 import java.util.*;
 
 public class EventListener implements Listener {
@@ -17,6 +21,7 @@ public class EventListener implements Listener {
     private List<String> commandOptions;
     private PlayerSwapHandItemsEvent playerSwapHandItemsEvent;
     private PlayerDropItemEvent playerDropItemEvent;
+    FileConfiguration cfg;
 
     public void EventListenerInit() {
         mainInstance.reloadConfig();
@@ -26,12 +31,14 @@ public class EventListener implements Listener {
         FCommand.setDebug(mainInstance.getConfig().getBoolean("debug"));
         Debugger.debug("commandOptions list: §e" + commandOptions);
 
+        cfg = YamlConfiguration.loadConfiguration(new File("plugins" + File.separator + "F-Command", "config.yml"));
+
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §7Loaded Commands: " + commandOptions);
     }
 
     private String getInfo(int count, String value){
 
-        String result = mainInstance.getConfig().getString("command." + commandOptions.get(count) + "." + value);
+        String result = cfg.getString("command." + commandOptions.get(count) + "." + value);
         Debugger.debug("§6Value: " + value + " - result: " + result);
         if(result == null) {
             Debugger.debug("The Value " + value + " for the Command " + commandOptions.get(count) + " is not set!");
