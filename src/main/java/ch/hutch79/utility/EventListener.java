@@ -120,12 +120,16 @@ public class EventListener implements Listener {
                 Debugger.debug("event canceled - §e" + commandOptions.get(count));
             }
 
-
+            List<String> commandsList;
             String commandString = getInfo(count, "command");
+
             if (commandString.charAt(0) == '[' && commandString.charAt(commandString.length() - 1) == ']') { // Check if first and last character are `[` and `]`
-                commandString = commandString.substring(1, commandString.length() - 1); // Remove forst and last character
+                commandsList = cfg.getStringList("command." + commandOptions.get(count) + "." + "command");
             }
-            List<String> commandsList = new ArrayList<>(Arrays.asList(commandString.split(","))); // Split string and add everything to list
+            else {
+                commandsList = new ArrayList<>(1);
+                commandsList.add(commandString);
+            }
 
             if (getInfo(count, "executeAsServer").equalsIgnoreCase("true")) {
                 for (String i: commandsList) {
