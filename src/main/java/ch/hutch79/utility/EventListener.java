@@ -122,13 +122,12 @@ public class EventListener implements Listener {
 
 
             String commandString = getInfo(count, "command");
-            if (commandString.charAt(0) == '[' && commandString.charAt(commandString.length() - 1) == ']') {
-                commandString = commandString.substring(1, commandString.length() - 1);
+            if (commandString.charAt(0) == '[' && commandString.charAt(commandString.length() - 1) == ']') { // Check if first and last character are `[` and `]`
+                commandString = commandString.substring(1, commandString.length() - 1); // Remove forst and last character
             }
-            List<String> commandsList = new ArrayList<>(Arrays.asList(commandString.split(",")));
+            List<String> commandsList = new ArrayList<>(Arrays.asList(commandString.split(","))); // Split string and add everything to list
 
             if (getInfo(count, "executeAsServer").equalsIgnoreCase("true")) {
-                Bukkit.getConsoleSender().sendMessage(commandsList.toString());
                 for (String i: commandsList) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), mainInstance.replacePlaceholders(player,i));
                 }
