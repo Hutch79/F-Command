@@ -90,7 +90,7 @@ public class EventListener implements Listener {
                 continue;
             }
 
-            if (!getInfo(count, "permission").equalsIgnoreCase("none")) { // Permission in Config?
+            if (!getInfo(count, "permission").equalsIgnoreCase("none")) { // Permission in set?
                 if (!player.hasPermission(getInfo(count, "permission"))) { // Correct Permission?
                     Debugger.debug("return permission - §e" + commandOptions.get(count));
                     continue;
