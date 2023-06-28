@@ -47,7 +47,6 @@ public class EventListener implements Listener {
             }
 
             if (value.equals("permission")) {
-                Debugger.debug("§6Haha");
                 return "none";
             }
 
