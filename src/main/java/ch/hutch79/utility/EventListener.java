@@ -122,11 +122,23 @@ public class EventListener implements Listener {
             }
 
 
+            String commandString = getInfo(count, "command");
+            if (commandString.charAt(0) == '[' && commandString.charAt(commandString.length() - 1) == ']') {
+                commandString = commandString.substring(1, commandString.length() - 1);
+            }
+            List<String> commandsList = new ArrayList<>(Arrays.asList(commandString.split(",")));
+
             if (getInfo(count, "executeAsServer").equalsIgnoreCase("true")) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), mainInstance.replacePlaceholders(player,getInfo(count, "command")));
+                Bukkit.getConsoleSender().sendMessage(commandsList.toString());
+                for (String i: commandsList) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), mainInstance.replacePlaceholders(player,i));
+                }
+
                 Debugger.debug("Executed by Server - §e" + commandOptions.get(count));
             } else {
-                player.performCommand(mainInstance.replacePlaceholders(player,getInfo(count, "command")));
+                for (String i: commandsList) {
+                    player.performCommand(mainInstance.replacePlaceholders(player,i));
+                }
                 Debugger.debug("Executed by Player - §e" + commandOptions.get(count));
             }
         }
