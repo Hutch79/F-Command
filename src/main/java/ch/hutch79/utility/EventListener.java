@@ -47,7 +47,6 @@ public class EventListener implements Listener {
             }
 
             if (value.equals("permission")) {
-                Debugger.debug("§6Haha");
                 return "none";
             }
 
@@ -91,7 +90,7 @@ public class EventListener implements Listener {
                 continue;
             }
 
-            if (!getInfo(count, "permission").equalsIgnoreCase("none")) { // Permission in Config?
+            if (!getInfo(count, "permission").equalsIgnoreCase("none")) { // Permission in set?
                 if (!player.hasPermission(getInfo(count, "permission"))) { // Correct Permission?
                     Debugger.debug("return permission - §e" + commandOptions.get(count));
                     continue;
@@ -121,12 +120,27 @@ public class EventListener implements Listener {
                 Debugger.debug("event canceled - §e" + commandOptions.get(count));
             }
 
+            List<String> commandsList;
+            String commandString = getInfo(count, "command");
+
+            if (commandString.charAt(0) == '[' && commandString.charAt(commandString.length() - 1) == ']') { // Check if first and last character are `[` and `]`
+                commandsList = cfg.getStringList("command." + commandOptions.get(count) + "." + "command");
+            }
+            else {
+                commandsList = new ArrayList<>(1);
+                commandsList.add(commandString);
+            }
 
             if (getInfo(count, "executeAsServer").equalsIgnoreCase("true")) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), mainInstance.replacePlaceholders(player,getInfo(count, "command")));
+                for (String i: commandsList) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), mainInstance.replacePlaceholders(player,i));
+                }
+
                 Debugger.debug("Executed by Server - §e" + commandOptions.get(count));
             } else {
-                player.performCommand(mainInstance.replacePlaceholders(player,getInfo(count, "command")));
+                for (String i: commandsList) {
+                    player.performCommand(mainInstance.replacePlaceholders(player,i));
+                }
                 Debugger.debug("Executed by Player - §e" + commandOptions.get(count));
             }
         }
