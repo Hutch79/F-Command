@@ -5,6 +5,8 @@
 ![Spiget Downloads](https://img.shields.io/spiget/downloads/108009?style=for-the-badge) 
 ![Spiget Rating](https://img.shields.io/spiget/rating/108009?style=for-the-badge)
 
+[![Foo](https://github.com/Hutch79/F-Command/assets/42042811/12729e90-064e-4647-93cb-faae60cb033e)](https://dc.hutch79.ch)
+
 # Description
 
 F-Command is a little and easy to configure Minecraft Plugin which lets you set up multiple commands which are executed on pressing the F or Q key (Swap Hands or dropping Items).
