@@ -2,7 +2,7 @@ package ch.hutch79;
 
 import ch.hutch79.command.Command;
 import ch.hutch79.command.CommandTab;
-import ch.hutch79.utility.EventListener;
+import ch.hutch79.events.EventHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -14,7 +14,7 @@ import java.util.Objects;
 public final class FCommand extends JavaPlugin {
     PluginDescriptionFile pdf = this.getDescription();
     private static FCommand instance;
-    private static EventListener eventListener;
+    private static EventHandler eventHandler;
     private boolean isPlaceholderApiInstalled = false;
     private static boolean debug;
 
@@ -22,14 +22,14 @@ public final class FCommand extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        eventListener = new EventListener();
+        eventHandler = new EventHandler();
 
 //        getConfig().options().copyDefaults();
         saveDefaultConfig();
         reloadConfig();
 
-        eventListener.EventListenerInit();
-        Bukkit.getPluginManager().registerEvents(eventListener, this);
+        eventHandler.EventListenerInit();
+        Bukkit.getPluginManager().registerEvents(eventHandler, this);
 
         Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command());
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
@@ -95,8 +95,8 @@ public final class FCommand extends JavaPlugin {
         return instance;
     }
 
-    public static EventListener getListener() {
-        return eventListener;
+    public static EventHandler getListener() {
+        return eventHandler;
     }
 
     public static boolean getDebug() {
