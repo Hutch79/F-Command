@@ -25,23 +25,23 @@ public class ConfigManager {
                 return "f";
             }
 
-            if (value.equals("permission")) {
+            else if (value.equals("permission")) {
                 return "none";
             }
 
-            if (value.equals("requireShift")) {
+            else if (value.equals("requireShift")) {
                 return "true";
             }
 
-            if (value.equals("cancel")) {
+            else if (value.equals("cancel")) {
                 return "false";
             }
 
-            if (value.equals("executeAsServer")) {
+            else if (value.equals("executeAsServer")) {
                 return "false";
             }
 
-            if (value.equals("command")) {
+            else if (value.equals("command")) {
                 return "say hi, im a default command. Please edit the config.yml to set your own command.";
             }
         }
