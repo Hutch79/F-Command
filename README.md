@@ -46,6 +46,12 @@ Only one command, only one Permission!
 `/fcmd reload` - Reloading your Config  
 `fcommand.admin` - Update notification and access to /fcmd reload
 
+# Known Bugs
+## Q Deteection not reliable
+The Q detection isn't 100% reliable due to the way I detect item drops.  
+Unfortunately, I don't know how I could improve my current check.  
+If you have an idea, don't hesitate to contact me on Discord.
+
 # Config
 
 ```yaml
