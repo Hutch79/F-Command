@@ -22,7 +22,7 @@ public class EventHandler implements Listener {
 
     FileConfiguration cfg;
 
-    public void EventListenerInit() {
+    public void eventListenerInit() {
         mainInstance.reloadConfig();
         Set<String> commandOptions2 = Objects.requireNonNull(FCommand.getInstance().getConfig().getConfigurationSection("command")).getKeys(false);
         List<String> commandOptions = new ArrayList<>(commandOptions2.size());
@@ -46,7 +46,7 @@ public class EventHandler implements Listener {
     private Boolean ignoreEvent = false;
     @org.bukkit.event.EventHandler
     private void inventoryClickEvent(InventoryClickEvent e) {
-        if (e.getSlotType() != InventoryType.SlotType.valueOf("OUTSIDE")) {
+        if (e.getSlotType() == InventoryType.SlotType.valueOf("OUTSIDE")) {
             Debugger.debug("Event ignored, not OUTSIDE");
             ignoreEvent = true;
         }
