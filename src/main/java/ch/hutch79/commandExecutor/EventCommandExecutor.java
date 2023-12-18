@@ -85,9 +85,7 @@ public class EventCommandExecutor {
 
             if (configManager.getInfo(count, "cancel").equalsIgnoreCase("true")) {
 
-                if (eventKey.equalsIgnoreCase("f")) {
-                    return true;
-                } else if (eventKey.equalsIgnoreCase("q")) {
+                if (eventKey.equalsIgnoreCase("f") || eventKey.equalsIgnoreCase("q")) {
                     return true;
                 }
                 Debugger.debug("event canceled - §e" + commandOptions.get(count));

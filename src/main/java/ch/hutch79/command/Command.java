@@ -17,7 +17,7 @@ public class Command implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
-            FCommand.getListener().EventListenerInit();
+            FCommand.getListener().eventListenerInit();
             sender.sendMessage("§dF-Command §8> §7Config has been reloaded");
         }
 

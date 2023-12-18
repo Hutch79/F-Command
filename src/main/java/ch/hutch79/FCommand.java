@@ -28,13 +28,13 @@ public final class FCommand extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        eventHandler.EventListenerInit();
+        eventHandler.eventListenerInit();
         Bukkit.getPluginManager().registerEvents(eventHandler, this);
 
         Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command());
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
 
-        Metrics metrics = new Metrics(this, 17738); // bStats
+        new Metrics(this, 17738); // bStats
 
         debug = getConfig().getBoolean("debug");
 
