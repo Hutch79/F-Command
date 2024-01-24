@@ -2,6 +2,8 @@
 # Might spam your console and/or chat ;-)
 debug: false
 
+version: 1
+
 # Example configuration
 command:
   # Name of the Command.

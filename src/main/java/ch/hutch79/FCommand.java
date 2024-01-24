@@ -2,13 +2,19 @@ package ch.hutch79;
 
 import ch.hutch79.command.Command;
 import ch.hutch79.command.CommandTab;
+import ch.hutch79.configManager.ConfigManager;
+import ch.hutch79.configManager.Configuration;
+import ch.hutch79.configManager.configClass.Config;
 import ch.hutch79.events.EventHandler;
+import ch.hutch79.utility.Debugger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bstats.bukkit.Metrics;
 import com.jeff_media.updatechecker.*;
+
+import java.io.Console;
 import java.util.Objects;
 
 public final class FCommand extends JavaPlugin {
@@ -23,7 +29,6 @@ public final class FCommand extends JavaPlugin {
         instance = this;
 
         eventHandler = new EventHandler();
-
 //        getConfig().options().copyDefaults();
         saveDefaultConfig();
         reloadConfig();
@@ -60,6 +65,11 @@ public final class FCommand extends JavaPlugin {
             getLogger().warning("So if you want to provide Feedback for this Version, don't hesitate to do so on GitHub");
             getLogger().warning("If you find any Bugs, please report them on GitHub: https://github.com/Hutch79/F-Command");
         }
+
+        ConfigManager configManager = new ConfigManager(getDataFolder());
+//        configManager.configStuff();
+        Configuration hui = configManager.getConfig(Config.class ,"test.yaml");
+        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
 
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6" + pdf.getName() + " " + pdf.getVersion() + " §bby Hutch79");
