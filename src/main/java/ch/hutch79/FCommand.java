@@ -3,10 +3,8 @@ package ch.hutch79;
 import ch.hutch79.command.Command;
 import ch.hutch79.command.CommandTab;
 import ch.hutch79.configManager.ConfigManager;
-import ch.hutch79.configManager.Configuration;
-import ch.hutch79.configManager.configClass.Config;
+import ch.hutch79.configManager.configClass.config.v0.Config;
 import ch.hutch79.events.EventHandler;
-import ch.hutch79.utility.Debugger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -14,7 +12,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bstats.bukkit.Metrics;
 import com.jeff_media.updatechecker.*;
 
-import java.io.Console;
 import java.util.Objects;
 
 public final class FCommand extends JavaPlugin {
@@ -30,10 +27,10 @@ public final class FCommand extends JavaPlugin {
 
         eventHandler = new EventHandler();
 //        getConfig().options().copyDefaults();
-        saveDefaultConfig();
-        reloadConfig();
+//        saveDefaultConfig();
+//        reloadConfig();
 
-        eventHandler.eventListenerInit();
+//        eventHandler.eventListenerInit();
         Bukkit.getPluginManager().registerEvents(eventHandler, this);
 
         Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command());
@@ -41,7 +38,7 @@ public final class FCommand extends JavaPlugin {
 
         new Metrics(this, 17738); // bStats
 
-        debug = getConfig().getBoolean("debug");
+//        debug = getConfig().getBoolean("debug");
 
         final int SPIGOT_RESOURCE_ID = 108009; // Update checker
 
@@ -68,8 +65,10 @@ public final class FCommand extends JavaPlugin {
 
         ConfigManager configManager = new ConfigManager(getDataFolder());
 //        configManager.configStuff();
-        Configuration hui = configManager.getConfig(Config.class ,"test.yaml");
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
+        Config hui = configManager.getConfig(Config.class ,"config.yml");
+
+        Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
+        Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(1).getCommandList().get(2));
 
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6" + pdf.getName() + " " + pdf.getVersion() + " §bby Hutch79");

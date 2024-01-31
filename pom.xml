@@ -46,6 +46,14 @@
                             <!-- Replace this with your package! -->
                             <shadedPattern>ch.hutch79</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>com.fasterxml.jackson</pattern>
+                            <shadedPattern>ch.hutch79.jackson</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.yaml.snakeyaml</pattern>
+                            <shadedPattern>ch.hutch79.snakeyaml</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>

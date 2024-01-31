@@ -1,16 +1,17 @@
-package ch.hutch79.configManager.configClass.config;
-
-import ch.hutch79.configManager.Configuration;
+package ch.hutch79.configManager.configClass.config.v0;
 
 import java.util.List;
 
-public class Command extends Configuration {
+public class Command {
     private String key;
     private boolean requireShift;
     private String permission;
-    private List<String> command;
+    private List<String> commandList;
     private boolean cancel;
     private boolean executeAsServer;
+
+
+
 
     public String getPermission() {
         return permission;
@@ -36,12 +37,12 @@ public class Command extends Configuration {
         this.key = key;
     }
 
-    public List<String> getCommand() {
-        return command;
+    public List<String> getCommandList() {
+        return commandList;
     }
 
-    public void setCommand(List<String> command) {
-        this.command = command;
+    public void setCommandList(List<String> command) {
+        this.commandList = command;
     }
 
     public boolean isCancel() {
