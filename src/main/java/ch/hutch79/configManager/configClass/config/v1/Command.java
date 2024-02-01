@@ -1,4 +1,4 @@
-package ch.hutch79.configManager.configClass.config.v0;
+package ch.hutch79.configManager.configClass.config.v1;
 
 import java.util.List;
 

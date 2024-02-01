@@ -1,6 +1,5 @@
 package ch.hutch79.configManager;
 
-import ch.hutch79.utility.Debugger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -8,12 +7,14 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ConfigManager {
 
     private static String pluginPath;
-    private ObjectMapper writeMapper;
-    private ObjectMapper readMapper;
+    private static ObjectMapper writeMapper;
+    private static ObjectMapper readMapper;
+    private static HashMap<Class<?>, Object> configCache = new HashMap<>();
     public ConfigManager(File _pluginPath) {
         pluginPath = _pluginPath.toString();
 
@@ -34,15 +35,17 @@ public class ConfigManager {
         }
     }
 
-    public <T> T getConfig (Class<?> configClass, String localPath) {
+    public <T> void loadConfig(Class<?> configClass, String localPath) {
         T config;
         try {
-            Debugger.debug(pluginPath + "/" + localPath);
             config = (T) readMapper.readValue(new File(pluginPath + "/" + localPath), configClass);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        configCache.put(configClass, config);
+    }
 
-        return config;
+    public <T> T getConfig(Class<?> configClass) {
+        return (T) configCache.get(configClass);
     }
 }

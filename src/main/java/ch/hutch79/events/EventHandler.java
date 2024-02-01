@@ -23,7 +23,6 @@ public class EventHandler implements Listener {
     FileConfiguration cfg;
 
     public void eventListenerInit() {
-        mainInstance.reloadConfig();
         Set<String> commandOptions2 = Objects.requireNonNull(FCommand.getInstance().getConfig().getConfigurationSection("command")).getKeys(false);
         List<String> commandOptions = new ArrayList<>(commandOptions2.size());
         commandOptions.addAll(commandOptions2);

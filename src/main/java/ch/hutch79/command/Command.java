@@ -1,11 +1,19 @@
 package ch.hutch79.command;
 
 import ch.hutch79.FCommand;
+import ch.hutch79.configManager.ConfigManager;
+import ch.hutch79.configManager.configClass.config.v1.Config;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class Command implements CommandExecutor {
+
+    ConfigManager configManager;
+    private Command(ConfigManager _configManager) {
+        configManager = _configManager;
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, @NotNull String[] args) {
 
@@ -17,10 +25,9 @@ public class Command implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
-            FCommand.getListener().eventListenerInit();
+            configManager.loadConfig(Config.class, "config.yml");
             sender.sendMessage("§dF-Command §8> §7Config has been reloaded");
         }
-
 
         return false;
     }
