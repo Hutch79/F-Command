@@ -4,6 +4,7 @@
 ![Spiget Downloads](https://img.shields.io/spiget/downloads/108009?style=for-the-badge) 
 ![Spiget Rating](https://img.shields.io/spiget/rating/108009?style=for-the-badge)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/453d263d71654b94b0b69329f94df7c6)](https://app.codacy.com/gh/Hutch79/F-Command?utm_source=github.com&utm_medium=referral&utm_content=Hutch79/F-Command&utm_campaign=Badge_Grade)
 [![Discord](https://github-production-user-asset-6210df.s3.amazonaws.com/42042811/249748477-12729e90-064e-4647-93cb-faae60cb033e.png)](https://dc.hutch79.ch)
 
 # Description
