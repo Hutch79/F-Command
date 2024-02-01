@@ -38,7 +38,7 @@ public final class FCommand extends JavaPlugin {
 //        eventHandler.eventListenerInit();
 //        Bukkit.getPluginManager().registerEvents(eventHandler, this);
 
-        Objects.requireNonNull(getCommand("fcommand")).setExecutor(Command.createCommand(configManager));
+        Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command(configManager));
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
 
         new Metrics(this, 17738); // bStats
@@ -70,6 +70,9 @@ public final class FCommand extends JavaPlugin {
         Config hui = configManager.getConfig(Config.class);
         Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
         Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(0).getCommandList().get(2));
+        hui.setDebug(false);
+        configManager.writeConfig(hui, "config.yml");
+        Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
 
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6" + pdf.getName() + " " + pdf.getVersion() + " §bby Hutch79");

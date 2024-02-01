@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class Command implements CommandExecutor {
 
     ConfigManager configManager;
-    private Command(ConfigManager _configManager) {
+    public Command(ConfigManager _configManager) {
         configManager = _configManager;
     }
 

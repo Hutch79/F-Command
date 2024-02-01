@@ -27,7 +27,7 @@ public class ConfigManager {
     }
 
 
-    public void writeConfig (Class<?> configClass, String localPath) {
+    public void writeConfig (Object configClass, String localPath) {
         try {
             writeMapper.writeValue(new File(pluginPath + "/" + localPath), configClass);
         } catch (IOException e) {
