@@ -66,13 +66,12 @@ public final class FCommand extends JavaPlugin {
             getLogger().warning("If you find any Bugs, please report them on GitHub: https://github.com/Hutch79/F-Command");
         }
 
-        configManager.loadConfig(Config.class ,"config.yml");
-        Config hui = configManager.getConfig(Config.class);
-        Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
-        Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(0).getCommandList().get(2));
-        hui.setDebug(false);
-        configManager.writeConfig(hui, "config.yml");
-        Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
+        Config config = configManager.loadConfig(Config.class ,"config.yml").getConfig(Config.class);
+        Bukkit.getConsoleSender().sendMessage("§d" + config.getDebug());
+        Bukkit.getConsoleSender().sendMessage("§d" + config.getCommand().get(0).getCommandList().get(2));
+        config.setDebug(false);
+        configManager.writeConfig(config, "config.yml");
+        Bukkit.getConsoleSender().sendMessage("§d" + config.getDebug());
 
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6" + pdf.getName() + " " + pdf.getVersion() + " §bby Hutch79");
