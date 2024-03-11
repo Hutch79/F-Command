@@ -5,6 +5,9 @@ import ch.hutch79.command.CommandTab;
 import ch.hutch79.configManager.ConfigManager;
 import ch.hutch79.configManager.configClass.config.v1.Config;
 import ch.hutch79.events.EventHandler;
+import io.sentry.Sentry;
+import io.sentry.SentryClient;
+import io.sentry.SentryClientFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -17,6 +20,7 @@ import com.jeff_media.updatechecker.UserAgentBuilder;
 import java.util.Objects;
 
 public final class FCommand extends JavaPlugin {
+    private static SentryClient sentry;
     PluginDescriptionFile pdf = this.getDescription();
     private static FCommand instance;
     private static EventHandler eventHandler;
@@ -27,10 +31,16 @@ public final class FCommand extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        instance = this;
+        Sentry.init("https://c55e725454d34630b9b64fbbe41ce535@glitchtip.hutch79.ch/2");
+        sentry = SentryClientFactory.sentryClient();
+
+
+
+        try {
+            instance = this;
 
 //        eventHandler = new EventHandler();
-        // Old config manager stuff
+            // Old config manager stuff
 //        getConfig().options().copyDefaults();
 //        saveDefaultConfig();
 //        reloadConfig();
@@ -38,57 +48,64 @@ public final class FCommand extends JavaPlugin {
 //        eventHandler.eventListenerInit();
 //        Bukkit.getPluginManager().registerEvents(eventHandler, this);
 
-        Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command(configManager));
-        Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
+            Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command(configManager));
+            Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
 
-        new Metrics(this, 17738); // bStats
+            new Metrics(this, 17738); // bStats
 
 //        debug = getConfig().getBoolean("debug");
 
-        final int SPIGOT_RESOURCE_ID = 108009; // Update checker
+            final int SPIGOT_RESOURCE_ID = 108009; // Update checker
 
-        new UpdateChecker(this, UpdateCheckSource.SPIGET, "" + SPIGOT_RESOURCE_ID + "")
-                .setDownloadLink("https://www.spigotmc.org/resources/108009/")
-                .setChangelogLink("https://www.spigotmc.org/resources/108009/updates")
-                .setColoredConsoleOutput(true)
-                .setNotifyOpsOnJoin(true)
-                .setNotifyByPermissionOnJoin("f-command.admin")
-                .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion().addServerVersion())
-                .checkEveryXHours(12) //Warn every 12 hours
-                .checkNow();
+            new UpdateChecker(this, UpdateCheckSource.SPIGET, "" + SPIGOT_RESOURCE_ID + "")
+                    .setDownloadLink("https://www.spigotmc.org/resources/108009/")
+                    .setChangelogLink("https://www.spigotmc.org/resources/108009/updates")
+                    .setColoredConsoleOutput(true)
+                    .setNotifyOpsOnJoin(true)
+                    .setNotifyByPermissionOnJoin("f-command.admin")
+                    .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion().addServerVersion())
+                    .checkEveryXHours(12) //Warn every 12 hours
+                    .checkNow();
 
 
-        if (pdf.getVersion().contains("Beta")) {
-            getLogger().warning("It seems you're using a dev Build");
-            getLogger().warning("You can use this Build on Production Servers but for some reasons i would not recommend that.");
-            getLogger().warning("Mostly i added some new features or have changed some things and need feedback before releasing.");
-            getLogger().warning("So if you want to provide Feedback for this Version, don't hesitate to do so on GitHub");
-            getLogger().warning("If you find any Bugs, please report them on GitHub: https://github.com/Hutch79/F-Command");
-        }
+            if (pdf.getVersion().contains("Beta")) {
+                getLogger().warning("It seems you're using a dev Build");
+                getLogger().warning("You can use this Build on Production Servers but for some reasons i would not recommend that.");
+                getLogger().warning("Mostly i added some new features or have changed some things and need feedback before releasing.");
+                getLogger().warning("So if you want to provide Feedback for this Version, don't hesitate to do so on GitHub");
+                getLogger().warning("If you find any Bugs, please report them on GitHub: https://github.com/Hutch79/F-Command");
+            }
 
-        configManager.loadConfig(Config.class ,"config.yml");
-        Config hui = configManager.getConfig(Config.class);
-        Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
-        Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(0).getCommandList().get(2));
-        hui.setDebug(false);
-        configManager.writeConfig(hui, "config.yml");
-        Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
+            configManager.loadConfig(Config.class, "config.yml");
+            Config hui = configManager.getConfig(Config.class);
+            Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
+            Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(0).getCommandList().get(2));
+            hui.setDebug(false);
+            configManager.writeConfig(hui, "config.yml");
+            Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
 
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6" + pdf.getName() + " " + pdf.getVersion() + " §bby Hutch79");
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §7Has been §2Enabled");
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5------------------------------------------------------");
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §cIf you find any Bugs, please report them on GitHub");
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6https://github.com/Hutch79/F-Command");
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §9Discord: §6https://dc.hutch79.ch");
-        Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6" + pdf.getName() + " " + pdf.getVersion() + " §bby Hutch79");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §7Has been §2Enabled");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5------------------------------------------------------");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §cIf you find any Bugs, please report them on GitHub");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6https://github.com/Hutch79/F-Command");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §9Discord: §6https://dc.hutch79.ch");
+            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
 
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §aPlaceholderAPI §7has been found, hooking into it now.");
-            isPlaceholderApiInstalled = true;
-        }
-        else {
-            Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §aPlaceholderAPI §7has not been found.");
+
+            if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+                Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §aPlaceholderAPI §7has been found, hooking into it now.");
+                isPlaceholderApiInstalled = true;
+                throw new Exception("Woopsi Doopsi, this is a Testi");
+            } else {
+                Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §aPlaceholderAPI §7has not been found.");
+                throw new Exception("Woopsi Doopsi, this is a Testi");
+            }
+
+        } catch (Exception e) {
+            Sentry.capture(e);
+            sentry.sendException(e);
         }
     }
 
@@ -121,7 +138,7 @@ public final class FCommand extends JavaPlugin {
     }
 
     public String replacePlaceholders(Player player, String input) {
-        if(isPlaceholderApiInstalled) {
+        if (isPlaceholderApiInstalled) {
             return me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, input);
         }
         return input;
