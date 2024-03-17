@@ -1,10 +1,12 @@
-package ch.hutch79;
+package ch.hutch79.Application;
 
-import ch.hutch79.command.Command;
-import ch.hutch79.command.CommandTab;
-import ch.hutch79.configManager.ConfigManager;
-import ch.hutch79.configManager.configClass.config.v1.Config;
-import ch.hutch79.events.EventHandler;
+import ch.hutch79.Application.command.Command;
+import ch.hutch79.Application.command.CommandTab;
+import ch.hutch79.Application.configManager.ConfigManager;
+import ch.hutch79.Domain.configs.v1.Config;
+import ch.hutch79.Application.events.EventHandler;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -17,6 +19,7 @@ import com.jeff_media.updatechecker.UserAgentBuilder;
 import java.util.Objects;
 
 public final class FCommand extends JavaPlugin {
+//    Injector injector = Guice.createInjector(new DemoModule());
     PluginDescriptionFile pdf = this.getDescription();
     private static FCommand instance;
     private static EventHandler eventHandler;

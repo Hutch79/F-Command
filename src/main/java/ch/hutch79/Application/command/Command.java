@@ -1,8 +1,7 @@
-package ch.hutch79.command;
+package ch.hutch79.Application.command;
 
-import ch.hutch79.FCommand;
-import ch.hutch79.configManager.ConfigManager;
-import ch.hutch79.configManager.configClass.config.v1.Config;
+import ch.hutch79.Application.configManager.ConfigManager;
+import ch.hutch79.Domain.configs.v1.Config;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;

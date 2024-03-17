@@ -1,8 +1,8 @@
-package ch.hutch79.commandExecutor;
+package ch.hutch79.Application.commandExecutor;
 
-import ch.hutch79.FCommand;
-import ch.hutch79.configManager.configClass.config.v0.ConfigManager;
-import ch.hutch79.utility.Debugger;
+import ch.hutch79.Application.FCommand;
+import ch.hutch79.Domain.configs.v0.ConfigManager;
+import ch.hutch79.Application.utility.Debugger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;

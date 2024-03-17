@@ -1,4 +1,4 @@
-package ch.hutch79.configManager.configClass.config.v1;
+package ch.hutch79.Domain.configs.v1;
 
 import java.util.List;
 
