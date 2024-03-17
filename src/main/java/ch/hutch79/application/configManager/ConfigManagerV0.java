@@ -1,17 +1,17 @@
-package ch.hutch79.Domain.configs.v0;
+package ch.hutch79.application.configManager;
 
-import ch.hutch79.Application.utility.Debugger;
+import ch.hutch79.application.utility.Debugger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.List;
 
-public class ConfigManager {
+public class ConfigManagerV0 {
     private final List<String> commandOptions;
     private FileConfiguration cfg;
 
-    public ConfigManager(List<String> commandOptions) {
+    public ConfigManagerV0(List<String> commandOptions) {
         this.commandOptions = commandOptions;
     }
 

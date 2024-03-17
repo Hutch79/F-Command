@@ -1,8 +1,8 @@
-package ch.hutch79.Application.commandExecutor;
+package ch.hutch79.application.commandExecutor;
 
-import ch.hutch79.Application.FCommand;
-import ch.hutch79.Domain.configs.v0.ConfigManager;
-import ch.hutch79.Application.utility.Debugger;
+import ch.hutch79.application.FCommand;
+import ch.hutch79.application.configManager.ConfigManagerV0;
+import ch.hutch79.application.utility.Debugger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class EventCommandExecutor {
-    private final ConfigManager configManager;
+    private final ConfigManagerV0 configManager;
     private final List<String> commandOptions;
     public EventCommandExecutor(List<String> commandOptions) {
         this.commandOptions = commandOptions;
-        configManager = new ConfigManager(this.commandOptions);
+        configManager = new ConfigManagerV0(this.commandOptions);
     }
 
     public boolean commandExecutor(Player player, Event event) {

@@ -1,8 +1,8 @@
-package ch.hutch79.Application.events;
+package ch.hutch79.application.events;
 
-import ch.hutch79.Application.FCommand;
-import ch.hutch79.Application.commandExecutor.EventCommandExecutor;
-import ch.hutch79.Application.utility.Debugger;
+import ch.hutch79.application.FCommand;
+import ch.hutch79.application.commandExecutor.EventCommandExecutor;
+import ch.hutch79.application.utility.Debugger;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

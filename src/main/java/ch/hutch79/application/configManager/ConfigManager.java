@@ -1,4 +1,4 @@
-package ch.hutch79.Application.configManager;
+package ch.hutch79.application.configManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

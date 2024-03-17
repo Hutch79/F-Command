@@ -1,6 +1,6 @@
 name: F-Command
 version: '${project.version}'
-main: ch.hutch79.Application.FCommand
+main: ch.hutch79.application.FCommand
 api-version: 1.13
 authors: [ Hutch79 ]
 description: F-Command executes a command if the Player switches his/here offhand

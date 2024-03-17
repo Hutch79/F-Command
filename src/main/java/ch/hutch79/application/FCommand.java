@@ -1,10 +1,12 @@
-package ch.hutch79.Application;
+package ch.hutch79.application;
 
-import ch.hutch79.Application.command.Command;
-import ch.hutch79.Application.command.CommandTab;
-import ch.hutch79.Application.configManager.ConfigManager;
+import ch.hutch79.application.command.Command;
+import ch.hutch79.application.command.CommandTab;
+import ch.hutch79.application.configManager.ConfigManager;
 import ch.hutch79.Domain.configs.v1.Config;
-import ch.hutch79.Application.events.EventHandler;
+import ch.hutch79.application.configManager.ConfigMigrator;
+import ch.hutch79.application.events.EventHandler;
+import ch.hutch79.application.guice.DiContainerInstances;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.bukkit.Bukkit;
@@ -19,7 +21,6 @@ import com.jeff_media.updatechecker.UserAgentBuilder;
 import java.util.Objects;
 
 public final class FCommand extends JavaPlugin {
-//    Injector injector = Guice.createInjector(new DemoModule());
     PluginDescriptionFile pdf = this.getDescription();
     private static FCommand instance;
     private static EventHandler eventHandler;
@@ -31,6 +32,8 @@ public final class FCommand extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        Injector injector = Guice.createInjector(new DiContainerInstances(instance));
+        ConfigMigrator configMigrator = injector.getInstance(ConfigMigrator.class);
 
 //        eventHandler = new EventHandler();
         // Old config manager stuff

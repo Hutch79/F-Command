@@ -1,6 +1,6 @@
-package ch.hutch79.Application.command;
+package ch.hutch79.application.command;
 
-import ch.hutch79.Application.configManager.ConfigManager;
+import ch.hutch79.application.configManager.ConfigManager;
 import ch.hutch79.Domain.configs.v1.Config;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

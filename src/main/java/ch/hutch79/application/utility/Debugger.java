@@ -1,6 +1,6 @@
-package ch.hutch79.Application.utility;
+package ch.hutch79.application.utility;
 
-import ch.hutch79.Application.FCommand;
+import ch.hutch79.application.FCommand;
 import org.bukkit.Bukkit;
 
 public final class Debugger {
