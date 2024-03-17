@@ -1,5 +1,6 @@
-package ch.hutch79.utility;
+package ch.hutch79.configManager.configClass.config.v0;
 
+import ch.hutch79.utility.Debugger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

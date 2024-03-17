@@ -1,7 +1,7 @@
 package ch.hutch79.commandExecutor;
 
 import ch.hutch79.FCommand;
-import ch.hutch79.utility.ConfigManager;
+import ch.hutch79.configManager.configClass.config.v0.ConfigManager;
 import ch.hutch79.utility.Debugger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
