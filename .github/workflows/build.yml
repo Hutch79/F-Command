@@ -3,8 +3,7 @@
 name: Compiling Action
 
 # Controls when the workflow will run
-# on: push
-on: pull_request
+on: [pull_request, push]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
