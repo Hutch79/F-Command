@@ -12,15 +12,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class Mv0_v1 {
+public class MigrationV1 {
     private static ConfigManagerV0 configManagerV0;
     private static ConfigManager configManager;
 
     @Inject
-    public Mv0_v1(ConfigManager _configManager, FCommand _fCommand) {
+    public MigrationV1(ConfigManager _configManager, FCommand _fCommand) {
         Bukkit.getConsoleSender().sendMessage("§4 1=========================================================================");
         Bukkit.getConsoleSender().sendMessage(_fCommand.toString());
         Bukkit.getConsoleSender().sendMessage(_configManager.toString());
+        Bukkit.getConsoleSender().sendMessage(_fCommand.getConfig().getConfigurationSection("command").getKeys(false).toArray().toString());
+
 
         Set<String> commandOptions2 = Objects.requireNonNull(_fCommand.getConfig().getConfigurationSection("command")).getKeys(false);
         Bukkit.getConsoleSender().sendMessage("§4-");
