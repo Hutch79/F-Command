@@ -40,7 +40,7 @@ public class MigrationV1 {
         Config hui = configManager.getConfig(Config.class);
 
         Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
-        Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(0).getCommandList().get(2));
+        Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(hui.getCommand().keySet().toArray()[1]).getCommandList());
 
         hui.setDebug(false);
         configManager.writeConfig(hui, "config.yml");
