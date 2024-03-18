@@ -1,8 +1,9 @@
 ![bStats Servers](https://img.shields.io/bstats/servers/17738?style=for-the-badge) 
 ![bStats Players](https://img.shields.io/bstats/players/17738?style=for-the-badge) 
-![GitHub last commit](https://img.shields.io/github/last-commit/Hutch79/F-Command?style=for-the-badge) 
-![Spiget Downloads](https://img.shields.io/spiget/downloads/108009?style=for-the-badge) 
-![Spiget Rating](https://img.shields.io/spiget/rating/108009?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/Hutch79/F-Command?style=for-the-badge)
+![Spiget Downloads](https://img.shields.io/spiget/downloads/108009?style=for-the-badge&logo=SpigotMC)
+![Spiget Rating](https://img.shields.io/spiget/rating/108009?style=for-the-badge&logo=SpigotMC)
+![Modrinth Downloads](https://img.shields.io/modrinth/dt/zDdNh6jC?style=for-the-badge&logo=modrinth)
 [![Codacy Badge](https://img.shields.io/codacy/grade/69b96e7e9deb4f77a770449ff4daf9f0?style=for-the-badge)](https://app.codacy.com/gh/Hutch79/F-Command/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 
