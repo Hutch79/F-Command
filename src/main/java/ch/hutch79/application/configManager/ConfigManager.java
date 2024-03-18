@@ -35,7 +35,7 @@ public class ConfigManager {
         }
     }
 
-    public <T> void loadConfig(Class<?> configClass, String localPath) {
+    public <T> ConfigManager loadConfig(Class<?> configClass, String localPath) {
         T config;
         try {
             config = (T) readMapper.readValue(new File(pluginPath + "/" + localPath), configClass);
@@ -43,6 +43,7 @@ public class ConfigManager {
             throw new RuntimeException(e);
         }
         configCache.put(configClass, config);
+        return this;
     }
 
     public <T> T getConfig(Class<?> configClass) {

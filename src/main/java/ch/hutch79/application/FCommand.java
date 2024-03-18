@@ -37,8 +37,8 @@ public final class FCommand extends JavaPlugin {
 
 //        eventHandler = new EventHandler();
         // Old config manager stuff
-//        getConfig().options().copyDefaults();
-//        saveDefaultConfig();
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
 //        reloadConfig();
 
 //        eventHandler.eventListenerInit();
@@ -74,8 +74,9 @@ public final class FCommand extends JavaPlugin {
 
         configManager.loadConfig(Config.class ,"config.yml");
         Config hui = configManager.getConfig(Config.class);
+
         Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
-        Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(0).getCommandList().get(2));
+        Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(hui.getCommand().keySet().toArray()[1]).getCommandList());
         hui.setDebug(false);
         configManager.writeConfig(hui, "config.yml");
         Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());

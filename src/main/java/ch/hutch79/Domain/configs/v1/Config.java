@@ -1,11 +1,14 @@
 package ch.hutch79.Domain.configs.v1;
 
 
-import java.util.List;
+import java.util.Map;
 
 public class Config {
     private boolean debug;
-    private List<Command> command;
+
+
+    private int version;
+    private Map<String, Command> command;
 
 
 
@@ -17,11 +20,18 @@ public class Config {
         this.debug = debug;
     }
 
-    public List<Command> getCommand() {
+    public Map<String, Command> getCommand() {
         return command;
     }
 
-    public void setCommand(List<Command> command) {
+    public void setCommand(Map<String, Command> command) {
         this.command = command;
+    }
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }
