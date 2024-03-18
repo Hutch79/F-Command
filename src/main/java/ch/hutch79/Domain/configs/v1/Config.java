@@ -1,14 +1,15 @@
 package ch.hutch79.Domain.configs.v1;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Config {
-    private boolean debug;
+    private boolean debug = false;
 
 
-    private int version;
-    private Map<String, Command> command;
+    private int version = 1;
+    private Map<String, Command> command = new HashMap<>();
 
 
 

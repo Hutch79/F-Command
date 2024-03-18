@@ -1,8 +1,7 @@
 package ch.hutch79.application.events;
 
 import ch.hutch79.application.FCommand;
-import ch.hutch79.application.commandExecutor.EventCommandExecutor;
-import ch.hutch79.application.utility.Debugger;
+import ch.hutch79.application.messages.Debugger;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,7 +17,7 @@ import java.util.*;
 public class EventHandler implements Listener {
 
     private final FCommand mainInstance = FCommand.getInstance();
-    private EventCommandExecutor eventCommandExecutor;
+//    private EventCommandExecutor eventCommandExecutor;
 
     FileConfiguration cfg;
 
@@ -33,14 +32,14 @@ public class EventHandler implements Listener {
 
         Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §7Loaded Commands: " + commandOptions);
 
-        eventCommandExecutor = new EventCommandExecutor(commandOptions);
+//        eventCommandExecutor = new EventCommandExecutor(commandOptions);
     }
 
     @org.bukkit.event.EventHandler
     private void onSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
         Debugger.debug("PlayerSwapHandItemsEvent detected");
-        if (eventCommandExecutor.commandExecutor(e.getPlayer(), e))
-            e.setCancelled(true);
+//        if (eventCommandExecutor.commandExecutor(e.getPlayer(), e))
+//            e.setCancelled(true);
     }
     private Boolean ignoreEvent = false;
     @org.bukkit.event.EventHandler
@@ -56,8 +55,8 @@ public class EventHandler implements Listener {
         Debugger.debug("PlayerDropItemEvent detected: " + e.getPlayer());
         if (!ignoreEvent) {
             Debugger.debug("It was Q");
-            if (eventCommandExecutor.commandExecutor(e.getPlayer(), e))
-                e.setCancelled(true);
+//            if (eventCommandExecutor.commandExecutor(e.getPlayer(), e))
+//                e.setCancelled(true);
         }
         ignoreEvent = false;
     }
