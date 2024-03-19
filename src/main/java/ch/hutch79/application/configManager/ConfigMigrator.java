@@ -8,14 +8,14 @@ import ch.hutch79.application.messages.Debugger;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import java.io.IOException;
+
 
 public class ConfigMigrator {
 
     @Inject
-    public ConfigMigrator(Injector injector, ConfigManager configManager, FCommand fCommand) {
-                ConsoleMessanger messanger = new ConsoleMessanger();
-        String localPath = "config.yml";
-        String fullPath = fCommand.getDataFolder().toString() + "config.yml";
+    public ConfigMigrator(Injector injector, ConfigManager configManager, FCommand fCommand) throws IOException {
+        ConsoleMessanger messanger = new ConsoleMessanger();
         try {
             configManager.loadConfig(Config.class, "config.yml");
         } catch (Exception e1) {
