@@ -29,5 +29,6 @@ public class MigrationV1Test {
         Assert.assertEquals("say q shift", hui.getCommand().get("command3").getCommandList().get(0));
         Assert.assertTrue(hui.getCommand().get("command4").isCancel());
         Assert.assertFalse(hui.getCommand().get("command3").isExecuteAsServer());
+        Assert.fail();
     }
 }
