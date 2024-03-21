@@ -20,8 +20,8 @@ import java.util.Set;
 public class MigrationV1 {
 
     public Config configMigration(Path configPath) throws IOException {
-        ConsoleMessanger debugger = new ConsoleMessanger(true);
-        debugger.message("&2Config Migration V1 Started!");
+        ConsoleMessanger debugger = new ConsoleMessanger();
+        debugger.message("§2Config Migration V1 Started!");
 
         Config newConfig = new Config();
         Path config = Paths.get(configPath.toString() + File.separator + "config.yml");
@@ -70,7 +70,7 @@ public class MigrationV1 {
             tempCommandList.put(commandOptions.get(count), command);
             newConfig.setCommand(tempCommandList);
         }
-        debugger.message("&2Config Migration V1 Successful!");
+        debugger.message("§2Config Migration V1 Successful!");
         return newConfig;
     }
 }

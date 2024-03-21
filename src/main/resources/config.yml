@@ -60,5 +60,3 @@ command:
       - say Q no shift
     cancel: true
     executeAsServer: false
-
-

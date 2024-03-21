@@ -3,10 +3,10 @@ package ch.hutch79.application;
 import ch.hutch79.application.command.Command;
 import ch.hutch79.application.command.CommandTab;
 import ch.hutch79.application.configManager.ConfigManager;
-import ch.hutch79.Domain.configs.v1.Config;
 import ch.hutch79.application.configManager.ConfigMigrator;
 import ch.hutch79.application.events.EventHandler;
 import ch.hutch79.application.guice.DiContainerInstances;
+import ch.hutch79.application.messages.ConsoleMessanger;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.bukkit.Bukkit;
@@ -31,14 +31,14 @@ public final class FCommand extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        instance = this;
-        Injector injector = Guice.createInjector(new DiContainerInstances(instance));
-        ConfigMigrator configMigrator = injector.getInstance(ConfigMigrator.class);
-
-//        eventHandler = new EventHandler();
-        // Old config manager stuff
         getConfig().options().copyDefaults();
         saveDefaultConfig();
+        instance = this;
+        new ConsoleMessanger(configManager);  // Give ConfigManager Instance to ConsoleMessanger
+        Injector injector = Guice.createInjector(new DiContainerInstances(instance));
+        injector.getInstance(ConfigMigrator.class);
+
+//        eventHandler = new EventHandler();
 //        reloadConfig();
 
 //        eventHandler.eventListenerInit();
