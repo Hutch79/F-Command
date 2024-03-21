@@ -71,7 +71,8 @@ command:
     # Which command should be executed as the player?
     # You can also use PlaceholderAPI here!
     # Enter without /
-    command: say f no shift
+    commandList:
+      - say f no shift
     # Stopping item drop or hand swap from happening
     cancel: true
     # Should the command be executed from the Server?
@@ -81,7 +82,9 @@ command:
     key: F
     requireShift: True
     permission: f-command.example
-    command: say F shift
+    commandList:
+      - say F shift
+      - say Hello there
     cancel: true
     executeAsServer: false
 ```
