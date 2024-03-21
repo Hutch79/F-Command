@@ -2,10 +2,7 @@ package ch.hutch79.application.configManager.Migrations;
 
 import ch.hutch79.Domain.configs.v1.Command;
 import ch.hutch79.Domain.configs.v1.Config;
-import ch.hutch79.application.FCommand;
-import ch.hutch79.application.configManager.ConfigManager;
 import ch.hutch79.application.messages.ConsoleMessanger;
-import com.google.inject.Inject;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -21,22 +18,15 @@ import java.util.Objects;
 import java.util.Set;
 
 public class MigrationV1 {
-    private ConfigManager configManager;
 
-    @Inject
-    public MigrationV1(ConfigManager configManager) {
-        this.configManager = configManager;
-    }
-
-    public void configMigration() throws IOException {
+    public Config configMigration(Path configPath) throws IOException {
         ConsoleMessanger debugger = new ConsoleMessanger(true);
-        debugger.message("&2Config Migration Started!");
+        debugger.message("&2Config Migration V1 Started!");
 
         Config newConfig = new Config();
-
-        Path config = Paths.get("plugins" + File.separator + "F-Command" + File.separator + "config.yml");
-        Path migratedConfigPath = Paths.get("plugins" + File.separator + "F-Command" + File.separator + "Migrations");
-        Path migratedConfig = Paths.get("plugins" + File.separator + "F-Command" + File.separator + "Migrations" + File.separator + "config-V0.yml");
+        Path config = Paths.get(configPath.toString() + File.separator + "config.yml");
+        Path migratedConfigPath = Paths.get(configPath.toString() + File.separator + "Migrations");
+        Path migratedConfig = Paths.get(migratedConfigPath.toString() + File.separator + "config-V0.yml");
 
         debugger.message("Old Path: " + config.toString());
         debugger.message("Copy Path: " + migratedConfig.toString());
@@ -53,26 +43,16 @@ public class MigrationV1 {
         List<String> commandOptions = new ArrayList<>(commandOptions2.size());
         commandOptions.addAll(commandOptions2);
 
+        newConfig.setDebug(yamlConfiguration.getBoolean("debug"));
+
         for (int count = 0; count < commandOptions.size(); count++) {
             Command command = new Command();
 
             command.setKey(yamlConfiguration.getString("command." + commandOptions.get(count) + ".key"));
             command.setPermission(yamlConfiguration.getString("command." + commandOptions.get(count) + ".permission"));
-
-            command.setRequireShift(false);
-            if (yamlConfiguration.getString("command." + commandOptions.get(count) + ".requireShift").equals("true")) {
-                command.setRequireShift(true);
-            }
-
-            command.setCancel(true);
-            if (yamlConfiguration.getString("command." + commandOptions.get(count) + ".cancel").equals("false")) {
-                command.setCancel(false);
-            }
-
-            command.setCancel(false);
-            if (yamlConfiguration.getString("command." + commandOptions.get(count) + ".executeAsServer").equals("true")) {
-                command.setExecuteAsServer(true);
-            }
+            command.setRequireShift(yamlConfiguration.getBoolean("command." + commandOptions.get(count) + ".requireShift"));
+            command.setCancel(yamlConfiguration.getBoolean("command." + commandOptions.get(count) + ".cancel"));
+            command.setExecuteAsServer(yamlConfiguration.getBoolean("command." + commandOptions.get(count) + ".executeAsServer"));
 
             List<String> commandsList;
             String commandString = yamlConfiguration.getString("command." + commandOptions.get(count) + ".command");
@@ -90,7 +70,7 @@ public class MigrationV1 {
             tempCommandList.put(commandOptions.get(count), command);
             newConfig.setCommand(tempCommandList);
         }
-        configManager.writeConfig(newConfig, "config.yml");
-        debugger.message("&2Migration Successful!");
+        debugger.message("&2Config Migration V1 Successful!");
+        return newConfig;
     }
 }

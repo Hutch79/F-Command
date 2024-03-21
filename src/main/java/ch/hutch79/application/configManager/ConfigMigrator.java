@@ -4,11 +4,12 @@ import ch.hutch79.Domain.configs.v1.Config;
 import ch.hutch79.application.FCommand;
 import ch.hutch79.application.configManager.Migrations.MigrationV1;
 import ch.hutch79.application.messages.ConsoleMessanger;
-import ch.hutch79.application.messages.Debugger;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 
 public class ConfigMigrator {
@@ -20,19 +21,13 @@ public class ConfigMigrator {
             configManager.loadConfig(Config.class, "config.yml");
         } catch (Exception e1) {
             try {
-                var hui = injector.getInstance(MigrationV1.class);
-                hui.configMigration();
+                var migrationV1 = injector.getInstance(MigrationV1.class);
+                Config configNew = migrationV1.configMigration(Paths.get("plugins" + File.separator + "F-Command"));
+                configManager.writeConfig(configNew, "config.yml");
             } catch (Exception e2) {
                 messanger.message("§cThe Config Migration failed. Therefore the Plugin will be disabled.");
                 throw e2;
             }
         }
-
-        Config config = configManager.getConfig(Config.class);
-
-//        switch (config.getVersion()) {
-//            case 1:
-//                injector.getInstance(MigrationV2.class);
-//        }
     }
 }

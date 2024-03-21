@@ -3,7 +3,7 @@
 debug: true
 
 # Example configuration
-commandsfrgd:
+command:
   # Name of the Command.
   command1:
     # Key to press
@@ -38,7 +38,7 @@ commandsfrgd:
       - say Have you noticed that these where three commands executed on one key press?
       - say Cool, right?
     cancel: true
-    executeAsServer: false
+    executeAsServer: true
 
   command3:
     key: q
