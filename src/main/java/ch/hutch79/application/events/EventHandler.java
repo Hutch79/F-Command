@@ -1,7 +1,7 @@
 package ch.hutch79.application.events;
 
 import ch.hutch79.application.FCommand;
-import ch.hutch79.application.messages.Debugger;
+import ch.hutch79.application.messages.ConsoleMessanger;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +18,7 @@ public class EventHandler implements Listener {
 
     private final FCommand mainInstance = FCommand.getInstance();
 //    private EventCommandExecutor eventCommandExecutor;
+    ConsoleMessanger debug = new ConsoleMessanger(true);
 
     FileConfiguration cfg;
 
@@ -26,7 +27,7 @@ public class EventHandler implements Listener {
         List<String> commandOptions = new ArrayList<>(commandOptions2.size());
         commandOptions.addAll(commandOptions2);
         FCommand.setDebug(mainInstance.getConfig().getBoolean("debug"));
-        Debugger.debug("commandOptions list: §e" + commandOptions);
+        debug.message("commandOptions list: §e" + commandOptions);
 
         cfg = YamlConfiguration.loadConfiguration(new File("plugins" + File.separator + "F-Command", "config.yml"));
 
@@ -37,7 +38,7 @@ public class EventHandler implements Listener {
 
     @org.bukkit.event.EventHandler
     private void onSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
-        Debugger.debug("PlayerSwapHandItemsEvent detected");
+        debug.message("PlayerSwapHandItemsEvent detected");
 //        if (eventCommandExecutor.commandExecutor(e.getPlayer(), e))
 //            e.setCancelled(true);
     }
@@ -45,16 +46,16 @@ public class EventHandler implements Listener {
     @org.bukkit.event.EventHandler
     private void inventoryClickEvent(InventoryClickEvent e) {
         if (e.getSlotType() == InventoryType.SlotType.valueOf("OUTSIDE")) {
-            Debugger.debug("Event ignored, not OUTSIDE");
+            debug.message("Event ignored, not OUTSIDE");
             ignoreEvent = true;
         }
     }
 
     @org.bukkit.event.EventHandler
     private void dropItemEvent(PlayerDropItemEvent e) {
-        Debugger.debug("PlayerDropItemEvent detected: " + e.getPlayer());
+        debug.message("PlayerDropItemEvent detected: " + e.getPlayer());
         if (!ignoreEvent) {
-            Debugger.debug("It was Q");
+            debug.message("It was Q");
 //            if (eventCommandExecutor.commandExecutor(e.getPlayer(), e))
 //                e.setCancelled(true);
         }
