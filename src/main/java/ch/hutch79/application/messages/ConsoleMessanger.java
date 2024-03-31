@@ -10,10 +10,18 @@ public class ConsoleMessanger {
     private static ConfigManager configManager;
 
 
-    public ConsoleMessanger(ConfigManager configManager) {
-        this.configManager = configManager;
+    /**
+     * Constructor to set ConfigManager instance to read debug value
+     * @param _configManager Instance of configManager to access Config.class
+     */
+    public ConsoleMessanger(ConfigManager _configManager) {
+        configManager = _configManager;
     }
 
+    /**
+     * Constructor for debug messages
+     * @param debuger doesnt matter, do what you want
+     */
     public ConsoleMessanger(boolean debuger) {
         this.prefix = "§cFcmd-debug §8> §7 ";
 
@@ -26,10 +34,13 @@ public class ConsoleMessanger {
             }
         }
 
-        Config config = this.configManager.getConfig(Config.class);
+        Config config = configManager.getConfig(Config.class);
         enabled = config.getDebug();
     }
 
+    /**
+     * Constructor for normal messages
+     */
     public ConsoleMessanger() {
         // There is no Bukkit when executed with JUnit so nothing should get sended.
         for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
