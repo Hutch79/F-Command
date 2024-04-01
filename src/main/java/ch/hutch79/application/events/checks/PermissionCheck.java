@@ -3,7 +3,6 @@ package ch.hutch79.application.events.checks;
 import ch.hutch79.application.messages.ConsoleMessanger;
 import ch.hutch79.domain.configs.v1.Command;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 
 public class PermissionCheck implements ICheck{
 
