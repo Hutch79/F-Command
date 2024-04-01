@@ -1,6 +1,5 @@
 package ch.hutch79.domain.configs.v1;
 
-
 import java.util.HashMap;
 import java.util.Map;
 

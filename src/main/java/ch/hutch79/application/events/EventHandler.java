@@ -1,5 +1,8 @@
 package ch.hutch79.application.events;
 
+import ch.hutch79.application.events.checks.KeyCheck;
+import ch.hutch79.application.events.checks.PermissionCheck;
+import ch.hutch79.application.events.checks.ShiftCheck;
 import ch.hutch79.domain.configs.v1.Command;
 import ch.hutch79.domain.configs.v1.Config;
 import ch.hutch79.application.FCommand;
@@ -46,18 +49,16 @@ public class EventHandler {
         for (Map.Entry<String, Command> command : config.getCommand().entrySet()) {
             debug.message("EventHandler Command: " + command.getKey());
 
-            if (!command.getValue().getKey().equalsIgnoreCase(eventKey)) {
-                debug.message("command: " + command.getKey() + " - return wrong key");
+            KeyCheck keyCheck = new KeyCheck(command.getValue(), eventKey);
+            if (!keyCheck.execute()) {
                 continue;
             }
-
-            if (!command.getValue().getPermission().equalsIgnoreCase("") && !player.hasPermission(command.getValue().getPermission())) {
-                debug.message("command: " + command.getKey() + " - return wrong permission");
+            PermissionCheck permissionCheck = new PermissionCheck(command.getValue(), event, player);
+            if (!permissionCheck.execute()) {
                 continue;
             }
-
-            if (command.getValue().isRequireShift() != player.isSneaking()) {
-                debug.message("command: " + command.getKey() + " - return wrong sneak state");
+            ShiftCheck shiftCheck = new ShiftCheck(command.getValue(), player);
+            if (!shiftCheck.execute()) {
                 continue;
             }
 
