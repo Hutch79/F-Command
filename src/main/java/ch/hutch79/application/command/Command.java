@@ -7,6 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileNotFoundException;
+
 public class Command implements CommandExecutor {
 
     private final ConfigManager configManager;
@@ -27,7 +29,11 @@ public class Command implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
-            configManager.loadConfig(Config.class, "config.yml");
+            try {
+                configManager.loadConfig(Config.class, "config.yml");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             sender.sendMessage("§dF-Command §8> §7Config has been reloaded");
             return true;
         }

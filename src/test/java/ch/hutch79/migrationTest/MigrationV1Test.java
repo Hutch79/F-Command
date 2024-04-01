@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 public class MigrationV1Test {
     @Test
-    public void MigrationV1() {
+    public void migrationV1() {
         MigrationV1 migrationV1 = new MigrationV1();
         var configPath = Paths.get(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "java" + File.separator + "ch" + File.separator + "hutch79" + File.separator + "migrationTest" + File.separator + "configs");
         Config migratedConfig;

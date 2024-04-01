@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import org.apache.commons.lang.NullArgumentException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -29,20 +29,20 @@ public class ConfigManager {
     }
 
 
-    public void writeConfig (Object configClass, String localPath) {
+    public void writeConfig (Object configClass, String localPath) throws FileNotFoundException {
         try {
             writeMapper.writeValue(new File(_pluginPath + File.separator + localPath), configClass);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileNotFoundException();
         }
     }
 
-    public <T> ConfigManager loadConfig(Class<?> configClass, String localPath) {
+    public <T> ConfigManager loadConfig(Class<?> configClass, String localPath) throws FileNotFoundException {
         T config;
         try {
             config = (T) readMapper.readValue(new File(_pluginPath + File.separator + localPath), configClass);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileNotFoundException();
         }
         configCache.put(configClass, config);
         return this;

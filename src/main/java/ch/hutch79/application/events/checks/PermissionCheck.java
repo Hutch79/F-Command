@@ -12,7 +12,7 @@ public class PermissionCheck implements ICheck{
     private final Player player;
     private ConsoleMessanger debug = new ConsoleMessanger(true);
 
-    public PermissionCheck(Command command, Event event, Player player) {
+    public PermissionCheck(Command command, Player player) {
         this.command = command;
         this.player = player;
     }

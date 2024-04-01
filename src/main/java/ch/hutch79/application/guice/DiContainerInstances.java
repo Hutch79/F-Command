@@ -22,7 +22,7 @@ public class DiContainerInstances extends AbstractModule {
 
     @Provides
     @Singleton
-    static ConfigManager ConfigManagerProvider() {
+    static ConfigManager configManagerProvider() {
         return configManager;
     }
 }

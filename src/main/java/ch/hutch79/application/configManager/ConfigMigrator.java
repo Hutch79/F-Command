@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 public class ConfigMigrator {
 
     @Inject
-    public ConfigMigrator(Injector injector, ConfigManager configManager, FCommand fCommand) throws IOException {
+    public ConfigMigrator(Injector injector, ConfigManager configManager) throws IOException {
         ConsoleMessanger messanger = new ConsoleMessanger();
         try {
             configManager.loadConfig(Config.class, "config.yml");
