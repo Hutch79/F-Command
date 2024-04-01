@@ -1,7 +1,7 @@
 package ch.hutch79.application.configManager.Migrations;
 
-import ch.hutch79.Domain.configs.v1.Command;
-import ch.hutch79.Domain.configs.v1.Config;
+import ch.hutch79.domain.configs.v1.Command;
+import ch.hutch79.domain.configs.v1.Config;
 import ch.hutch79.application.messages.ConsoleMessanger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

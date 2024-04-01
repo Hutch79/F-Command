@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       # Setting up JDK 11
-      - name: Step 2 - Setting up JDK 8
+      - name: Step 2 - Setting up JDK 11
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'

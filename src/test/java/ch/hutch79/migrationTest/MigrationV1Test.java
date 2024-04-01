@@ -1,7 +1,7 @@
 package ch.hutch79.migrationTest;
 
 import ch.hutch79.application.configManager.Migrations.MigrationV1;
-import ch.hutch79.Domain.configs.v1.Config;
+import ch.hutch79.domain.configs.v1.Config;
 import org.junit.Assert;
 import org.junit.Test;
 

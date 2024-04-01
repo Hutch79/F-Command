@@ -1,6 +1,6 @@
 package ch.hutch79.application.messages;
 
-import ch.hutch79.Domain.configs.v1.Config;
+import ch.hutch79.domain.configs.v1.Config;
 import ch.hutch79.application.configManager.ConfigManager;
 import org.bukkit.Bukkit;
 
