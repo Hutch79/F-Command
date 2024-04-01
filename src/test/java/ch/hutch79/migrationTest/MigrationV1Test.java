@@ -21,6 +21,7 @@ public class MigrationV1Test {
             throw new RuntimeException(e);
         }
 
+
         Assert.assertTrue(migratedConfig.getDebug());
         Assert.assertEquals(4, migratedConfig.getCommand().size());
         Assert.assertEquals("f", migratedConfig.getCommand().get("command1").getKey());
