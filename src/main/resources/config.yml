@@ -2,6 +2,7 @@
 # Might spam your console and/or chat ;-)
 debug: false
 
+# Do not change this!
 version: 1
 
 # Example configuration

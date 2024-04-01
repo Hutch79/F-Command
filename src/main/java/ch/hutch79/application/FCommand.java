@@ -35,9 +35,9 @@ public final class FCommand extends JavaPlugin {
 
         new ConsoleMessanger(injector.getInstance(ConfigManager.class));  // Give ConfigManager Instance to ConsoleMessanger
 
-        Bukkit.getPluginManager().registerEvents(injector.getInstance(EventRecivers.class), this);
         Objects.requireNonNull(getCommand("fcommand")).setExecutor(injector.getInstance(Command.class));
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
+        Bukkit.getPluginManager().registerEvents(injector.getInstance(EventRecivers.class), this);
 
         new Metrics(this, 17738); // bStats
 
