@@ -1,4 +1,4 @@
-package ch.hutch79.Domain.configs.v1;
+package ch.hutch79.domain.configs.v1;
 
 
 import java.util.HashMap;
@@ -6,8 +6,6 @@ import java.util.Map;
 
 public class Config {
     private boolean debug = false;
-
-
     private int version = 1;
     private Map<String, Command> command = new HashMap<>();
 

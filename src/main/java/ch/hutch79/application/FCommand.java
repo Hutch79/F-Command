@@ -4,7 +4,7 @@ import ch.hutch79.application.command.Command;
 import ch.hutch79.application.command.CommandTab;
 import ch.hutch79.application.configManager.ConfigManager;
 import ch.hutch79.application.configManager.ConfigMigrator;
-import ch.hutch79.application.events.EventHandler;
+import ch.hutch79.application.events.EventRecivers;
 import ch.hutch79.application.guice.DiContainerInstances;
 import ch.hutch79.application.messages.ConsoleMessanger;
 import com.google.inject.Guice;
@@ -23,33 +23,23 @@ import java.util.Objects;
 public final class FCommand extends JavaPlugin {
     PluginDescriptionFile pdf = this.getDescription();
     private static FCommand instance;
-    private static EventHandler eventHandler;
     private boolean isPlaceholderApiInstalled = false;
-    private static boolean debug;
-    private ConfigManager configManager = new ConfigManager(getDataFolder());
-//    private Config config = new ConfigManager(getDataFolder()).loadConfig(Config.class, "config.yml");
 
     @Override
     public void onEnable() {
         getConfig().options().copyDefaults();
         saveDefaultConfig();
         instance = this;
-        new ConsoleMessanger(configManager);  // Give ConfigManager Instance to ConsoleMessanger
         Injector injector = Guice.createInjector(new DiContainerInstances(instance));
         injector.getInstance(ConfigMigrator.class);
 
-//        eventHandler = new EventHandler();
-//        reloadConfig();
+        new ConsoleMessanger(injector.getInstance(ConfigManager.class));  // Give ConfigManager Instance to ConsoleMessanger
 
-//        eventHandler.eventListenerInit();
-//        Bukkit.getPluginManager().registerEvents(eventHandler, this);
-
-        Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command(configManager));
+        Bukkit.getPluginManager().registerEvents(injector.getInstance(EventRecivers.class), this);
+        Objects.requireNonNull(getCommand("fcommand")).setExecutor(injector.getInstance(Command.class));
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
 
         new Metrics(this, 17738); // bStats
-
-//        debug = getConfig().getBoolean("debug");
 
         final int SPIGOT_RESOURCE_ID = 108009; // Update checker
 
@@ -71,15 +61,6 @@ public final class FCommand extends JavaPlugin {
             getLogger().warning("So if you want to provide Feedback for this Version, don't hesitate to do so on GitHub");
             getLogger().warning("If you find any Bugs, please report them on GitHub: https://github.com/Hutch79/F-Command");
         }
-
-//        configManager.loadConfig(Config.class ,"config.yml");
-//        Config hui = configManager.getConfig(Config.class);
-//
-//        Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
-//        Bukkit.getConsoleSender().sendMessage("§d" + hui.getCommand().get(hui.getCommand().keySet().toArray()[1]).getCommandList());
-//        hui.setDebug(false);
-//        configManager.writeConfig(hui, "config.yml");
-//        Bukkit.getConsoleSender().sendMessage("§d" + hui.getDebug());
 
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5======================================================");
         Bukkit.getConsoleSender().sendMessage("§d" + pdf.getName() + " §8> §5| §6" + pdf.getName() + " " + pdf.getVersion() + " §bby Hutch79");
@@ -113,18 +94,6 @@ public final class FCommand extends JavaPlugin {
 
     public static FCommand getInstance() {
         return instance;
-    }
-
-    public static EventHandler getListener() {
-        return eventHandler;
-    }
-
-    public static boolean getDebug() {
-        return debug;
-    }
-
-    public static void setDebug(Boolean value) {
-        debug = value;
     }
 
     public String replacePlaceholders(Player player, String input) {

@@ -1,64 +1,84 @@
 package ch.hutch79.application.events;
 
+import ch.hutch79.domain.configs.v1.Command;
+import ch.hutch79.domain.configs.v1.Config;
 import ch.hutch79.application.FCommand;
+import ch.hutch79.application.configManager.ConfigManager;
 import ch.hutch79.application.messages.ConsoleMessanger;
+import com.google.inject.Inject;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
-import java.io.File;
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
 
-public class EventHandler implements Listener {
+public class EventHandler {
 
-    private final FCommand mainInstance = FCommand.getInstance();
-//    private EventCommandExecutor eventCommandExecutor;
-    ConsoleMessanger debug = new ConsoleMessanger(true);
+    private final ConfigManager configManager;
+    private String eventKey;
+    private Player player;
+    private ConsoleMessanger debug = new ConsoleMessanger(true);
 
-    FileConfiguration cfg;
+    @Inject
+    public EventHandler(ConfigManager configManager) {
 
-    public void eventListenerInit() {
-        Set<String> commandOptions2 = Objects.requireNonNull(FCommand.getInstance().getConfig().getConfigurationSection("command")).getKeys(false);
-        List<String> commandOptions = new ArrayList<>(commandOptions2.size());
-        commandOptions.addAll(commandOptions2);
-        FCommand.setDebug(mainInstance.getConfig().getBoolean("debug"));
-        debug.message("commandOptions list: §e" + commandOptions);
-
-        cfg = YamlConfiguration.loadConfiguration(new File("plugins" + File.separator + "F-Command", "config.yml"));
-
-        Bukkit.getConsoleSender().sendMessage("§dF-Command §8> §7Loaded Commands: " + commandOptions);
-
-//        eventCommandExecutor = new EventCommandExecutor(commandOptions);
+        this.configManager = configManager;
     }
 
-    @org.bukkit.event.EventHandler
-    private void onSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
-        debug.message("PlayerSwapHandItemsEvent detected");
-//        if (eventCommandExecutor.commandExecutor(e.getPlayer(), e))
-//            e.setCancelled(true);
-    }
-    private Boolean ignoreEvent = false;
-    @org.bukkit.event.EventHandler
-    private void inventoryClickEvent(InventoryClickEvent e) {
-        if (e.getSlotType() == InventoryType.SlotType.valueOf("OUTSIDE")) {
-            debug.message("Event ignored, not OUTSIDE");
-            ignoreEvent = true;
+    public void handler(Event event) {
+        PlayerSwapHandItemsEvent playerSwapHandItemsEvent = null;
+        PlayerDropItemEvent playerDropItemEvent = null;
+        if (Objects.equals(event.getEventName(), "PlayerSwapHandItemsEvent")) {
+            eventKey = "f";
+            playerSwapHandItemsEvent = (PlayerSwapHandItemsEvent) event;
+            player = playerSwapHandItemsEvent.getPlayer();
+
+        } else if (Objects.equals(event.getEventName(), "PlayerDropItemEvent")) {
+            eventKey = "q";
+            playerDropItemEvent = (PlayerDropItemEvent) event;
+            player = playerDropItemEvent.getPlayer();
         }
-    }
+        Config config = configManager.getConfig(Config.class);
 
-    @org.bukkit.event.EventHandler
-    private void dropItemEvent(PlayerDropItemEvent e) {
-        debug.message("PlayerDropItemEvent detected: " + e.getPlayer());
-        if (!ignoreEvent) {
-            debug.message("It was Q");
-//            if (eventCommandExecutor.commandExecutor(e.getPlayer(), e))
-//                e.setCancelled(true);
+        for (Map.Entry<String, Command> command : config.getCommand().entrySet()) {
+            debug.message("EventHandler Command: " + command.getKey());
+
+            if (!command.getValue().getKey().equalsIgnoreCase(eventKey)) {
+                debug.message("command: " + command.getKey() + " - return wrong key");
+                continue;
+            }
+
+            if (!command.getValue().getPermission().equalsIgnoreCase("") && !player.hasPermission(command.getValue().getPermission())) {
+                debug.message("command: " + command.getKey() + " - return wrong permission");
+                continue;
+            }
+
+            if (command.getValue().isRequireShift() != player.isSneaking()) {
+                debug.message("command: " + command.getKey() + " - return wrong sneak state");
+                continue;
+            }
+
+
+            for (String i : command.getValue().getCommandList()) {
+                if (command.getValue().isExecuteAsServer()) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), FCommand.getInstance().replacePlaceholders(player, i));
+                    debug.message("command: " + command.getKey() + " - executed by console");
+                } else {
+                    player.performCommand(FCommand.getInstance().replacePlaceholders(player, i));
+                    debug.message("command: " + command.getKey() + " - executed by player");
+                }
+            }
+
+            if (command.getValue().isCancel()) {
+                if (eventKey.equalsIgnoreCase("f")) {
+                    playerSwapHandItemsEvent.setCancelled(true);
+                } else {
+                    playerDropItemEvent.setCancelled(true);
+                }
+            }
         }
-        ignoreEvent = false;
     }
 }

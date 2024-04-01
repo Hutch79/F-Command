@@ -1,14 +1,17 @@
 package ch.hutch79.application.command;
 
 import ch.hutch79.application.configManager.ConfigManager;
-import ch.hutch79.Domain.configs.v1.Config;
+import ch.hutch79.domain.configs.v1.Config;
+import jakarta.inject.Inject;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class Command implements CommandExecutor {
 
-    ConfigManager configManager;
+    private final ConfigManager configManager;
+
+    @Inject
     public Command(ConfigManager _configManager) {
         configManager = _configManager;
     }
@@ -26,6 +29,7 @@ public class Command implements CommandExecutor {
         if (args[0].equalsIgnoreCase("reload")) {
             configManager.loadConfig(Config.class, "config.yml");
             sender.sendMessage("§dF-Command §8> §7Config has been reloaded");
+            return true;
         }
 
         return false;
