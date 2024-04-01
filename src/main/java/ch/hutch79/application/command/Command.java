@@ -1,7 +1,7 @@
 package ch.hutch79.application.command;
 
 import ch.hutch79.application.configManager.ConfigManager;
-import ch.hutch79.domain.configs.v1.Config;
+import ch.hutch79.Domain.configs.v1.Config;
 import jakarta.inject.Inject;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

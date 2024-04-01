@@ -1,6 +1,6 @@
 package ch.hutch79.application.configManager;
 
-import ch.hutch79.domain.configs.v1.Config;
+import ch.hutch79.Domain.configs.v1.Config;
 import ch.hutch79.application.FCommand;
 import ch.hutch79.application.configManager.Migrations.MigrationV1;
 import ch.hutch79.application.messages.ConsoleMessanger;
