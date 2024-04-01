@@ -53,7 +53,7 @@ public class EventHandler {
             if (!keyCheck.execute()) {
                 continue;
             }
-            PermissionCheck permissionCheck = new PermissionCheck(command.getValue(), event, player);
+            PermissionCheck permissionCheck = new PermissionCheck(command.getValue(), player);
             if (!permissionCheck.execute()) {
                 continue;
             }
