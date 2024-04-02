@@ -4,7 +4,7 @@ import ch.hutch79.application.messages.ConsoleMessanger;
 import ch.hutch79.domain.configs.v1.Command;
 import org.bukkit.entity.Player;
 
-public class PermissionCheck implements ICheck{
+public class PermissionCheck implements ICheck {
 
 
     private final Command command;
@@ -18,9 +18,11 @@ public class PermissionCheck implements ICheck{
 
     @Override
     public boolean execute() {
-        if (!command.getPermission().equalsIgnoreCase("") && !player.hasPermission(command.getPermission())) {
-            debug.message("command: " + command.getKey() + " - return wrong permission");
-            return false;
+        if (command.getPermission() != null) {
+            if (!command.getPermission().equalsIgnoreCase("") && !player.hasPermission(command.getPermission())) {
+                debug.message("command: " + command.getKey() + " - return wrong permission");
+                return false;
+            }
         }
         return true;
     }
