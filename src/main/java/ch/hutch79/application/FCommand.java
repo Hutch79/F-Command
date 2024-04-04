@@ -1,42 +1,45 @@
-package ch.hutch79;
+package ch.hutch79.application;
 
-import ch.hutch79.command.Command;
-import ch.hutch79.command.CommandTab;
-import ch.hutch79.events.EventHandler;
+import ch.hutch79.application.command.Command;
+import ch.hutch79.application.command.CommandTab;
+import ch.hutch79.application.configManager.ConfigManager;
+import ch.hutch79.application.configManager.ConfigMigrator;
+import ch.hutch79.application.events.EventRecivers;
+import ch.hutch79.application.guice.DiContainerInstances;
+import ch.hutch79.application.messages.ConsoleMessanger;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bstats.bukkit.Metrics;
-import com.jeff_media.updatechecker.*;
+import com.jeff_media.updatechecker.UpdateChecker;
+import com.jeff_media.updatechecker.UpdateCheckSource;
+import com.jeff_media.updatechecker.UserAgentBuilder;
+
 import java.util.Objects;
 
 public final class FCommand extends JavaPlugin {
     PluginDescriptionFile pdf = this.getDescription();
     private static FCommand instance;
-    private static EventHandler eventHandler;
     private boolean isPlaceholderApiInstalled = false;
-    private static boolean debug;
 
     @Override
     public void onEnable() {
-        instance = this;
-
-        eventHandler = new EventHandler();
-
-//        getConfig().options().copyDefaults();
+        getConfig().options().copyDefaults();
         saveDefaultConfig();
-        reloadConfig();
+        instance = this;
+        Injector injector = Guice.createInjector(new DiContainerInstances(instance));
+        injector.getInstance(ConfigMigrator.class);
 
-        eventHandler.eventListenerInit();
-        Bukkit.getPluginManager().registerEvents(eventHandler, this);
+        new ConsoleMessanger(injector.getInstance(ConfigManager.class));  // Give ConfigManager Instance to ConsoleMessanger
 
-        Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command());
+        Objects.requireNonNull(getCommand("fcommand")).setExecutor(injector.getInstance(Command.class));
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
+        Bukkit.getPluginManager().registerEvents(injector.getInstance(EventRecivers.class), this);
 
         new Metrics(this, 17738); // bStats
-
-        debug = getConfig().getBoolean("debug");
 
         final int SPIGOT_RESOURCE_ID = 108009; // Update checker
 
@@ -49,8 +52,6 @@ public final class FCommand extends JavaPlugin {
                 .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion().addServerVersion())
                 .checkEveryXHours(12) //Warn every 12 hours
                 .checkNow();
-
-
 
 
         if (pdf.getVersion().contains("Beta")) {
@@ -95,23 +96,10 @@ public final class FCommand extends JavaPlugin {
         return instance;
     }
 
-    public static EventHandler getListener() {
-        return eventHandler;
-    }
-
-    public static boolean getDebug() {
-        return debug;
-    }
-
-    public static void setDebug(Boolean value) {
-        debug = value;
-    }
-
     public String replacePlaceholders(Player player, String input) {
         if(isPlaceholderApiInstalled) {
             return me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, input);
         }
         return input;
     }
-
 }

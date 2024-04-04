@@ -1,11 +1,23 @@
-package ch.hutch79.command;
+package ch.hutch79.application.command;
 
-import ch.hutch79.FCommand;
+import ch.hutch79.application.configManager.ConfigManager;
+import ch.hutch79.domain.configs.v1.Config;
+import jakarta.inject.Inject;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileNotFoundException;
+
 public class Command implements CommandExecutor {
+
+    private final ConfigManager configManager;
+
+    @Inject
+    public Command(ConfigManager _configManager) {
+        configManager = _configManager;
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, @NotNull String[] args) {
 
@@ -17,10 +29,14 @@ public class Command implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
-            FCommand.getListener().eventListenerInit();
+            try {
+                configManager.loadConfig(Config.class, "config.yml");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             sender.sendMessage("§dF-Command §8> §7Config has been reloaded");
+            return true;
         }
-
 
         return false;
     }

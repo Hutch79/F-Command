@@ -1,4 +1,4 @@
-package ch.hutch79.command;
+package ch.hutch79.application.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

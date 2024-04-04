@@ -1,9 +1,6 @@
 # Only turn this on if you're asked to
 # Might spam your console and/or chat ;-)
-debug: false
-
-# Do not change this!
-version: 1
+debug: true
 
 # Example configuration
 command:
@@ -21,10 +18,9 @@ command:
     permission: f-command.example  # Default none
 
     # Which command should be executed?
-    # You can also use PlaceholderAPI here
+    # You can also use PlaceholderAPI here and create a list of commands (See command2).
     # Enter without /
-    commandList:
-      - say f no shift
+    command: say f no shift
 
     # Stopping item drop or hand swap from happening
     cancel: true  # Default false
@@ -36,20 +32,19 @@ command:
     key: F
     requireShift: True
     permission: f-command.example
-    commandList:
+    command:
       - say You pressed the F key
       - say and you're also shifting.
       - say Have you noticed that these where three commands executed on one key press?
       - say Cool, right?
     cancel: true
-    executeAsServer: false
+    executeAsServer: true
 
   command3:
     key: q
     requireShift: True
     permission: f-command.example
-    commandList:
-      - say q shift
+    command: say q shift
     cancel: true
     executeAsServer: false
 
@@ -57,7 +52,6 @@ command:
     key: Q
     requireShift: false
     permission: f-command.example
-    commandList:
-      - say Q no shift
+    command: say Q no shift
     cancel: true
     executeAsServer: false
