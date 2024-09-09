@@ -2,7 +2,6 @@ package ch.hutch79.application.command;
 
 import ch.hutch79.application.configManager.ConfigManager;
 import ch.hutch79.domain.configs.v1.Config;
-import jakarta.inject.Inject;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +12,6 @@ public class Command implements CommandExecutor {
 
     private final ConfigManager configManager;
 
-    @Inject
     public Command(ConfigManager _configManager) {
         configManager = _configManager;
     }

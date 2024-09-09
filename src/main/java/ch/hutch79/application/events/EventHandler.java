@@ -8,7 +8,6 @@ import ch.hutch79.domain.configs.v1.Config;
 import ch.hutch79.application.FCommand;
 import ch.hutch79.application.configManager.ConfigManager;
 import ch.hutch79.application.messages.ConsoleMessanger;
-import com.google.inject.Inject;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -25,7 +24,6 @@ public class EventHandler {
     private Player player;
     private ConsoleMessanger debug = new ConsoleMessanger(true);
 
-    @Inject
     public EventHandler(ConfigManager configManager) {
 
         this.configManager = configManager;

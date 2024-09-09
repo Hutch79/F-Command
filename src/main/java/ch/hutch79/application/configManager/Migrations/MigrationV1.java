@@ -5,7 +5,6 @@ import ch.hutch79.domain.configs.v1.Config;
 import ch.hutch79.application.messages.ConsoleMessanger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
