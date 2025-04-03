@@ -4,11 +4,10 @@ import ch.hutch79.application.command.Command;
 import ch.hutch79.application.command.CommandTab;
 import ch.hutch79.application.configManager.ConfigManager;
 import ch.hutch79.application.configManager.ConfigMigrator;
+import ch.hutch79.application.events.EventHandler;
 import ch.hutch79.application.events.EventRecivers;
-import ch.hutch79.application.guice.DiContainerInstances;
 import ch.hutch79.application.messages.ConsoleMessanger;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import ch.hutch79.domain.configs.v1.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -18,11 +17,15 @@ import com.jeff_media.updatechecker.UpdateChecker;
 import com.jeff_media.updatechecker.UpdateCheckSource;
 import com.jeff_media.updatechecker.UserAgentBuilder;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 
 public final class FCommand extends JavaPlugin {
     PluginDescriptionFile pdf = this.getDescription();
     private static FCommand instance;
+    private static ConfigManager configManager;
+    private static EventHandler eventHandler;
     private boolean isPlaceholderApiInstalled = false;
 
     @Override
@@ -30,14 +33,19 @@ public final class FCommand extends JavaPlugin {
         getConfig().options().copyDefaults();
         saveDefaultConfig();
         instance = this;
-        Injector injector = Guice.createInjector(new DiContainerInstances(instance));
-        injector.getInstance(ConfigMigrator.class);
+        configManager = new ConfigManager(instance.getDataFolder());
+        try {
+            configManager.loadConfig(Config.class, "config.yml");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        new ConsoleMessanger(configManager);
 
-        new ConsoleMessanger(injector.getInstance(ConfigManager.class));  // Give ConfigManager Instance to ConsoleMessanger
-
-        Objects.requireNonNull(getCommand("fcommand")).setExecutor(injector.getInstance(Command.class));
+        Objects.requireNonNull(getCommand("fcommand")).setExecutor(new Command(configManager));
         Objects.requireNonNull(getCommand("fcommand")).setTabCompleter(new CommandTab());
-        Bukkit.getPluginManager().registerEvents(injector.getInstance(EventRecivers.class), this);
+
+        eventHandler = new EventHandler(configManager);
+        Bukkit.getPluginManager().registerEvents(new EventRecivers(eventHandler), this);
 
         new Metrics(this, 17738); // bStats
 
@@ -101,5 +109,9 @@ public final class FCommand extends JavaPlugin {
             return me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, input);
         }
         return input;
+    }
+
+    public PluginDescriptionFile getPdf() {
+        return pdf;
     }
 }
