@@ -1,5 +1,7 @@
 package ch.hutch79.domain.configs.v1;
 
+import org.bukkit.Bukkit;
+
 import java.util.HashMap;
 import java.util.Map;
 
